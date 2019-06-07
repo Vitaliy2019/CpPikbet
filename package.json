@@ -1,0 +1,35 @@
+{
+  "name": "pikbet-admin",
+  "version": "1.0.0",
+  "description": "панель управления мордой сайта",
+  "author": "Приступа Александр",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "now-build": "nuxt build --spa"
+  },
+  "dependencies": {
+    "cross-env": "^5.2.0",
+    "font-awesome": "^4.7.0",
+    "lodash.truncate": "^4.4.2",
+    "nuxt": "^2.8.1",
+    "quill": "^1.3.6",
+    "roboto-fontface": "*",
+    "vee-validate": "^2.2.9",
+    "vue": "^2.6.10",
+    "vue-fullcalendar": "^1.0.9",
+    "vue-perfect-scrollbar": "^0.1.0",
+    "vue-quill-editor": "^3.0.6",
+    "vue-server-renderer": "^2.6.10",
+    "vuetify": "^1.5.14",
+    "vuetify-loader": "^1.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2"
+  }
+}
