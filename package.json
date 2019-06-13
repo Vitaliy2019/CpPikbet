@@ -12,7 +12,15 @@
     "now-build": "nuxt build --spa"
   },
   "dependencies": {
+    "@finpo/vue2-recaptcha-invisible": "^1.1.5",
+    "@mdi/font": "^2.4.85",
+    "@nuxtjs/auth": "^4.5.3",
+    "@nuxtjs/axios": "^5.3.6",
+    "@nuxtjs/redirect-module": "^0.1.0",
+    "@nuxtjs/sitemap": "^0.2.0",
+    "axios": "^0.19.0",
     "cross-env": "^5.2.0",
+    "element-ui": "^2.9.1",
     "font-awesome": "^4.7.0",
     "lodash.truncate": "^4.4.2",
     "nuxt": "^2.8.1",
@@ -23,7 +31,9 @@
     "vue-fullcalendar": "^1.0.9",
     "vue-perfect-scrollbar": "^0.1.0",
     "vue-quill-editor": "^3.0.6",
+    "vue-recaptcha": "^1.1.1",
     "vue-server-renderer": "^2.6.10",
+    "vuelidate": "^0.7.4",
     "vuetify": "^1.5.14",
     "vuetify-loader": "^1.2.0"
   },
