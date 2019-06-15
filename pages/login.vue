@@ -8,7 +8,7 @@
               <v-card-text>
                 <div class="layout column align-center">
                   <img
-                    src="../static/m.png"
+                    src="../static/favicon.png"
                     alt="панель управления Pikbet"
                     width="120"
                     height="120"

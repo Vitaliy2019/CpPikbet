@@ -1,9 +1,11 @@
 <template>
   <div id="appRoot">
-    <nuxt />
+    <nuxt/>
   </div>
 </template>
 
 <script>
-  export default {}
+export default {
+  // middleware: ["auth"]
+};
 </script>

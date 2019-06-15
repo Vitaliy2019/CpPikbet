@@ -110,44 +110,44 @@ export default {
   components: {
     NotificationList
   },
-  data: () => ({
-    items: [
-      {
-        icon: "account_circle",
-        href: "#",
-        title: "Профиль",
-        click: e => {
-          console.log(e);
+  data() {
+    return {
+      items: [
+        {
+          icon: "account_circle",
+          href: "#",
+          title: "Профиль",
+          click: e => {
+            console.log(e);
+          }
+        },
+        {
+          icon: "settings",
+          href: "#",
+          title: "Установки",
+          click: e => {
+            console.log(e.target);
+          }
+        },
+        {
+          icon: "fullscreen_exit",
+          href: "#",
+          title: "Выход",
+          click: () => this.$auth.logout()
         }
-      },
-      {
-        icon: "settings",
-        href: "#",
-        title: "Установки",
-        click: e => {
-          console.log(e);
+      ],
+      itemsLogout: [
+        {
+          icon: "account_circle",
+          href: "#",
+          title: "Вход",
+          click: e => {
+            this.$router.push("/login");
+          }
         }
-      },
-      {
-        icon: "fullscreen_exit",
-        href: "#",
-        title: "Выход",
-        click: e => {
-          this.$auth.logout();
-        }
-      }
-    ],
-    itemsLogout: [
-      {
-        icon: "account_circle",
-        href: "#",
-        title: "Вход",
-        click: e => {
-          this.$router.push("/login");
-        }
-      }
-    ]
-  }),
+      ]
+    };
+  },
   computed: {
     ...mapGetters(["isAuthenticated", "loggedInUser"]),
     toolbarColor() {
@@ -160,6 +160,9 @@ export default {
     },
     handleFullScreen() {
       Util.toggleFullScreen();
+    },
+    async Logout() {
+      await this.$auth.logout();
     }
   }
 };

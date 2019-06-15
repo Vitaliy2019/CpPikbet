@@ -4,7 +4,7 @@ const pkg = require('./package')
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
 module.exports = {
-   mode: 'spa',
+  mode: 'spa',
   //serverMiddleware: ['../api/auth'],
   modules: [
     '@nuxtjs/axios',
@@ -38,10 +38,10 @@ module.exports = {
       }
     },
     redirect: {
-      login: '/',
-      //logout: '/',
-      callback: '/callback'
-      //home: '/login'
+      login: '/login',
+      logout: '/login',
+      callback: '/callback',
+      home: '/'
     }
   },
   /*
