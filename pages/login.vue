@@ -9,7 +9,7 @@
                 <div class="layout column align-center">
                   <img
                     src="../static/favicon.png"
-                    alt="панель управления Pikbet"
+                    alt="панель управления сайтом Pikbet"
                     width="120"
                     height="120"
                   >
@@ -139,7 +139,7 @@ export default {
         this.$router.push("/");
       } catch (e) {
         // this.error = e.response.data
-        debugger
+        debugger;
         this.$notify({
           type: "error",
           title: "Внимание",
