@@ -13,7 +13,7 @@
                     width="120"
                     height="120"
                   >
-                  <h1 class="flex my-4 primary--text">Вход в панель управления Pikbet</h1>
+                  <h1 class="flex my-4 primary--text display-1 text-xs-center">Вход в панель управления Pikbet</h1>
                 </div>
                 <v-form>
                   <v-text-field
