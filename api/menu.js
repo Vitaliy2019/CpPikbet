@@ -23,7 +23,7 @@ const Menu = [{
     items: [{
         name: 'social',
         title: 'Капперы',
-        href: '/widgets/social'
+        href: '/spavochnik/kapers/list'
       },
       {
         name: 'statistic',
@@ -34,7 +34,7 @@ const Menu = [{
       {
         name: 'chart',
         title: 'Актуальные прогнозы',
-        href: '/widgets/chart'
+        href: '/widgets/statistic'
       },
       {
         name: 'list',

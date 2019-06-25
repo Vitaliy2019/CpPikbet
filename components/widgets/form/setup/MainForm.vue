@@ -51,7 +51,6 @@ export default {
     };
   },
   async created() {
-    debugger;
     const { setups } = await this.$axios.$get("/api/App/getsetup");
     this.dataSetup = setups;
   },
@@ -60,7 +59,7 @@ export default {
   },
   methods: {
     submit() {
-      debugger;
+      ;
       this.$validator.validateAll().then(async isValid => {
         if (isValid) {
           const { rc } = await this.$axios.$put(

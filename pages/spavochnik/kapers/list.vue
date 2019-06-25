@@ -20,12 +20,12 @@
       </el-tooltip>
     </div>
     <div class="mb-2">
-      <el-tooltip effect="dark" content="Добавить нового букмекера">
+      <el-tooltip effect="dark" content="Добавить нового капера">
         <v-btn icon dark medium color="primary" @click="handleInsertItem">
           <v-icon>add</v-icon>
         </v-btn>
       </el-tooltip>
-      <el-tooltip effect="dark" content="Копировать букмекера">
+      <el-tooltip effect="dark" content="Копировать капера">
         <v-btn color="primary" icon dark @click="handleCopy">
           <v-icon>filter_none</v-icon>
         </v-btn>
@@ -35,7 +35,7 @@
           <v-icon>autorenew</v-icon>
         </v-btn>
       </el-tooltip>
-      <el-tooltip effect="dark" content="Удалить выделенного букмекра">
+      <el-tooltip effect="dark" content="Удалить выделенного капера">
         <v-btn icon dark color="primary" @click="handleDeleteAll">
           <v-icon>delete</v-icon>
         </v-btn>
@@ -48,7 +48,7 @@
     </div>
     <el-table
       ref="multipleTable"
-      v-loading="listLoading"
+      v-loading="prGetList"
       :data="desserts"
       style="width: 100%"
       border
@@ -66,19 +66,22 @@
           :property="fruit.nameField"
         >
           <template slot-scope="scope">
-            <span style="margin-left: 10px">{{ scope.row[fruit.nameField] }}</span>
+            <v-avatar v-if="fruit.nameField==='Avatar'">
+              <img :src="scope.row[fruit.nameField]" alt="avatar">
+            </v-avatar>
+            <span v-else style="margin-left: 10px">{{ scope.row[fruit.nameField] }}</span>
           </template>
         </el-table-column>
       </template>
 
       <el-table-column label="Действие">
         <template slot-scope="scope">
-          <el-tooltip effect="dark" content="Редактировать букмекера">
+          <el-tooltip effect="dark" content="Редактировать капера">
             <v-btn outline icon dark medium color="primary" @click="editItem(scope.row)">
               <v-icon small>edit</v-icon>
             </v-btn>
           </el-tooltip>
-          <el-tooltip effect="dark" content="Удалить букмекера">
+          <el-tooltip effect="dark" content="Удалить капера">
             <v-btn outline icon dark medium color="pink" @click="deleteItem(scope.row)">
               <v-icon small>delete</v-icon>
             </v-btn>
@@ -99,91 +102,21 @@
       />
     </div>
     <set-fieldslang-ref title="Показать / скрыть поля"/>
-    <v-dialog v-model="dialogForm" max-width="500">
-      <v-card>
-        <v-card-title>
-          <span class="headline">Редактируем букмекера</span>
-        </v-card-title>
-
-        <v-card-text>
-          <v-form ref="form" v-model="valid" lazy-validation width="100%">
-            <v-container>
-              <v-layout wrap>
-                <v-flex>
-                  <v-text-field
-                    required
-                    :rules="nameRules"
-                    v-model="bucmekers.Name"
-                    label="Наименование"
-                  ></v-text-field>
-                </v-flex>
-                <v-flex>
-                  <v-rating
-                    v-model="bucmekers.Rating"
-                    background-color="white"
-                    color="yellow accent-4"
-                    dense
-                    half-increments
-                    hover
-                    size="18"
-                  ></v-rating>
-                </v-flex>
-                <v-flex>
-                  <v-text-field
-                    required
-                    :rules="descRules"
-                    v-model="bucmekers.Description"
-                    label="Описание"
-                  ></v-text-field>
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </v-form>
-        </v-card-text>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" flat @click="close">Закрыть</v-btn>
-          <v-btn color="blue darken-1" flat @click="save">Сохранить</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+    <form-edit></form-edit>
   </v-container>
 </template>
 
 <script>
 import SetFieldslangRef from "@/components/setFieldslangRef/index.vue";
+import FormEdit from "./form.vue";
 export default {
   layout: "dashboard",
-  components: { SetFieldslangRef },
+  components: { SetFieldslangRef, FormEdit },
   data() {
     return {
-      valid: true,
-      listLoading: false,
-      nameRules: [v => !!v || "Требуется имя букмекера"],
-      descRules: [v => !!v || "Требуется описание букмекера"],
-      dialogForm: false,
-      bucmekers: {
-        Id: 0,
-        Name: "",
-        Rating: 1,
-        Description: "Букмекерская контора"
-      },
+      // listLoading: false,
       search: "",
       selected: [],
-      loading: false,
-      headers: [
-        {
-          text: "ID",
-          align: "center",
-          // sortable: true,
-          value: "Id"
-        },
-        { text: "Наименование", value: "Name" },
-        { text: "Рейтинг", value: "rating" },
-        { text: "Описание", value: "description" }
-      ],
-      pagination: {},
       totalDesserts: 0,
       desserts: [],
       listQuery: {
@@ -193,16 +126,41 @@ export default {
       },
       formThead: [
         { nameField: "Id", lngName: "№", chkbD: true },
-        { nameField: "Name", lngName: "Наименование", chkbD: true },
+        { nameField: "Login", lngName: "Логин", chkbD: true },
+        { nameField: "Avatar", lngName: "Аватар", chkbD: false },
+        { nameField: "City", lngName: "Город", chkbD: false },
+        { nameField: "Pol", lngName: "Пол", chkbD: false },
+        { nameField: "Family", lngName: "Фамилия", chkbD: true },
+        { nameField: "Fnme", lngName: "Имя", chkbD: true },
+        { nameField: "Email", lngName: "E-mail", chkbD: true },
+        { nameField: "Tel", lngName: "Телефон", chkbD: true },
+        { nameField: "N_yandex_dengi", lngName: "Яндекс.Деньги", chkbD: false },
+        { nameField: "Pasword", lngName: "Пароль", chkbD: false },
+        { nameField: "Score", lngName: "Счет", chkbD: false },
         { nameField: "Rating", lngName: "Рейтинг", chkbD: true },
-        { nameField: "Description", lngName: "Описание", chkbD: true }
+        { nameField: "Count_stavok", lngName: "Ставки", chkbD: false },
+        { nameField: "Dodhod", lngName: "Доход", chkbD: false },
+        { nameField: "Prohod", lngName: "Проход", chkbD: false },
+        { nameField: "Sr_koeff", lngName: "Ср.коэфф.", chkbD: false }
       ],
+
       multipleSelection: []
     };
   },
   computed: {
     LangFormThead: function() {
       return this.$store.state.formThead;
+    },
+    prGetList: {
+      get() {
+        if (this.$store.getters["kaper/getPrGetList"]) {
+          this.getList();
+        }
+        return this.$store.getters["kaper/getPrGetList"];
+      },
+      set(newValue) {
+        this.$store.dispatch("kaper/setPrGetList", newValue);
+      }
     }
   },
   created() {
@@ -211,15 +169,10 @@ export default {
   },
   methods: {
     handleInsertItem() {
-      this.reset();
-      this.dialogForm = true;
+      this.$store.commit("kaper/RESET");
+      this.$store.commit("kaper/SET_DIALOG_FORM", true);
     },
-    reset() {
-      this.bucmekers.Id = 0;
-      this.bucmekers.Name = "";
-      this.bucmekers.Rating = 1;
-      this.bucmekers.Description = "Букмекерская контора";
-    },
+
     handleDeleteAll() {
       this.$confirm(
         "Вы подтверждаете удаление выделенных записей",
@@ -233,7 +186,7 @@ export default {
       ).then(async () => {
         if (this.multipleSelection.length > 0) {
           const { rc } = await this.$axios.$post(
-            "/api/Bucmekers/deleteall",
+            "/api/Kapers/deleteall",
             this.multipleSelection
           );
           if (rc === "ok") {
@@ -262,14 +215,14 @@ export default {
         // let data = new FormData();
         if (this.multipleSelection.length > 0) {
           const { rc } = await this.$axios.$post(
-            "/api/Bucmekers/copy",
+            "/api/Kapers/copy",
             this.multipleSelection
           );
           if (rc === "ok") {
             this.getList();
             this.$message({
               type: "success",
-              message: "Выбранные букмекеры скопированы!"
+              message: "Выбранные каперы скопированы!"
             });
           } else {
             this.$message({
@@ -307,45 +260,19 @@ export default {
       this.getList();
     },
     async getList() {
-      this.listLoading = true;
-      const { bucmekers, total } = await this.$axios.$get("/api/Bucmekers", {
+      this.prGetList = true;
+      const { kapers, total } = await this.$axios.$get("/api/Kapers", {
         params: this.listQuery
       });
-      this.desserts = bucmekers;
+      this.desserts = kapers;
       this.totalDesserts = total;
-      this.listLoading = false;
-    },
-    close() {
-      this.dialogForm = false;
-    },
-    save() {
-      if (this.$refs.form.validate()) {
-        this.insertItem();
-      }
-    },
-    async insertItem() {
-      const { rc } = await this.$axios.$post("/api/Bucmekers", this.bucmekers);
-      if (rc === "ok") {
-        this.getList();
-        this.dialogForm = false;
-        this.$notify({
-          title: "Выполнено",
-          type: "success",
-          message: "Букмекер изменен"
-        });
-      } else {
-        this.$notify({
-          title: "Ошибка!",
-          type: "error",
-          message: rc
-        });
-      }
-    },
-    editItem(item) {
-      this.bucmekers = Object.assign({}, item);
-      this.dialogForm = true;
+      this.prGetList = false;
     },
 
+    editItem(item) {
+      this.$store.commit("kaper/SET_KAPER", Object.assign({}, item));
+      this.$store.commit("kaper/SET_DIALOG_FORM", true);
+    },
     deleteItem(item) {
       this.$confirm("Вы подтверждаете удаление?", "Внимание", {
         confirmButtonText: "OK",
@@ -354,16 +281,16 @@ export default {
         center: true
       })
         .then(async () => {
-          ;
-          // this.bucmekers = Object.assign({}, item);
-          const { rc } = await this.$axios.$delete("/api/Bucmekers", {
-            params: item
-          });
+          //this.kapers = Object.assign({}, item);
+          debugger;
+          const { rc } = await this.$axios.$delete(`/api/Kapers/${item.Id}`); //, {
+          //params: item
+          //});
           if (rc === "ok") {
             await this.getList();
             this.$notify({
               title: "Выполнено!", // this.$t("message.titleSucces"),
-              message: "Букмекер успешно удален", // this.$t("message.succes"),
+              message: "Капер успешно удален", // this.$t("message.succes"),
               type: "success"
             });
           } else {
@@ -377,7 +304,7 @@ export default {
         .catch(e => {
           this.$message({
             type: "info",
-            message: "Удаленеие счета отменено"
+            message: "Удаленеие капера отменено"
           });
         });
     }

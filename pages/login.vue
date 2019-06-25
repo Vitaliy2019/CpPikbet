@@ -122,14 +122,14 @@ export default {
       //this.loading = true;
       this.$v.$touch();
       if (!this.$v.$invalid) {
-        debugger;
+        ;
         this.$refs.invisibleRecaptcha.execute();
       }
     },
     onVerify: async function(response) {
       try {
         this.loading = true;
-        debugger;
+        ;
         await this.$auth.loginWith("local", {
           data: {
             email: this.email,
@@ -139,7 +139,7 @@ export default {
         this.$router.push("/");
       } catch (e) {
         // this.error = e.response.data
-        debugger;
+        ;
         this.$notify({
           type: "error",
           title: "Внимание",

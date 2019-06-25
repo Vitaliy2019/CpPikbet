@@ -3,15 +3,9 @@
     <v-toolbar-title class="ml-0 pl-3">
       <v-toolbar-side-icon @click.stop="toggleDrawer()"></v-toolbar-side-icon>
     </v-toolbar-title>
-    <v-text-field
-      flat
-      solo-inverted
-      prepend-icon="search"
-      label="Search"
-      class="hidden-sm-and-down"
-    ></v-text-field>
+    <v-text-field flat solo-inverted prepend-icon="search" label="Поиск" class="hidden-sm-and-down"></v-text-field>
     <v-spacer></v-spacer>
-    <v-btn icon href="https://github.com/moeddami/nuxt-material-admin">
+    <v-btn icon href="https://acrtr.ru">
       <v-icon>fa-2x fa-github</v-icon>
     </v-btn>
     <v-btn icon @click="handleFullScreen()">
@@ -118,15 +112,15 @@ export default {
           href: "#",
           title: "Профиль",
           click: e => {
-            console.log(e);
+            this.$router.push("/profile");
           }
         },
         {
           icon: "settings",
           href: "#",
           title: "Установки",
-          click: e => {
-            console.log(e.target);
+          click: () => {
+            this.$router.push("/setup");
           }
         },
         {

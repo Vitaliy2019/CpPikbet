@@ -1,7 +1,9 @@
 <template>
   <v-card class="elevation-0">
     <v-toolbar card dense color="transparent">
-      <v-toolbar-title><h4>Notification</h4></v-toolbar-title>
+      <v-toolbar-title>
+        <h4>Уведомления</h4>
+      </v-toolbar-title>
     </v-toolbar>
     <v-divider></v-divider>
     <v-card-text class="pa-0">
@@ -16,30 +18,27 @@
             <v-list-tile-content>
               <v-list-tile-sub-title v-html="item.title"></v-list-tile-sub-title>
             </v-list-tile-content>
-            <v-list-tile-action class="caption">
-              {{item.timeLabel}}
-            </v-list-tile-action>
+            <v-list-tile-action class="caption">{{item.timeLabel}}</v-list-tile-action>
           </v-list-tile>
         </template>
       </v-list>
       <v-divider></v-divider>
-      <v-btn block flat class="ma-0">All</v-btn>
+      <v-btn block flat class="ma-0">ВСЕ</v-btn>
       <v-divider></v-divider>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
-import notes from '@/api/notification';
+import notes from "@/api/notification";
 export default {
   data: () => ({
     items: notes
   }),
   methods: {
-    handleClick: (e) => {
+    handleClick: e => {
       console.log(e);
     }
-  },
-
+  }
 };
 </script>

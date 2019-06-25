@@ -1,29 +1,37 @@
-export default [
-  {
-    title: 'New user registered',
+export default [{
+    title: 'Зарег новый каппер',
     color: 'light-green',
     icon: 'account_circle',
-    timeLabel: 'Just now'
+    timeLabel: 'Прямо сейчас'
   },
-  { divider: true, inset: true },
   {
-    title: 'New order received',
+    divider: true,
+    inset: true
+  },
+  {
+    title: 'Новая ставка получена',
     color: 'light-blue',
     icon: 'shopping_cart',
-    timeLabel: '2 min ago'
+    timeLabel: '2 мин назад'
   },
-  { divider: true, inset: true },
   {
-    title: 'New payment made',
+    divider: true,
+    inset: true
+  },
+  {
+    title: 'Сделан новый платеж',
     color: 'cyan',
     icon: 'payment',
-    timeLabel: '24 min ago'
+    timeLabel: '24 мин назад'
   },
-  { divider: true, inset: true },
   {
-    title: 'New message from Michael',
+    divider: true,
+    inset: true
+  },
+  {
+    title: 'Новое сооб от каппера',
     color: 'red',
     icon: 'email',
-    timeLabel: '1 hour ago'
+    timeLabel: '1 час назад'
   }
 ];
