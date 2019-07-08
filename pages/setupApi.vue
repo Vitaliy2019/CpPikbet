@@ -3,13 +3,13 @@
     <v-layout row wrap>
       <v-flex xs12 sm12 md12>
         <v-card>
-          <v-toolbar color="primary" dark flat dense cad>
-            <v-toolbar-title class="subheading">Профиль</v-toolbar-title>
+          <v-toolbar color="success" dark flat dense cad>
+            <v-toolbar-title class="subheading">Данные Api</v-toolbar-title>
             <v-spacer></v-spacer>
           </v-toolbar>
           <v-divider></v-divider>
           <v-card-text class>
-            <update-profile-admin></update-profile-admin>
+            <main-form-api></main-form-api>
           </v-card-text>
         </v-card>
       </v-flex>
@@ -18,13 +18,16 @@
 </template>
 
 <script>
-import UpdateProfileAdmin from "@/components/widgets/form/setup/UpdateProfileAdmin";
+import MainFormApi from "@/components/widgets/form/api/MainFormApi";
 export default {
-  name: "profile-settup-admin",
+  name: "app-setup",
   layout: "dashboard",
-  components: { UpdateProfileAdmin },
+  components: { MainFormApi },
   data() {
     return {};
+  },
+  async fetch({ store }) {
+    await store.dispatch("initApiKey");
   }
 };
 </script>

@@ -9,6 +9,13 @@ const Menu = [{
     href: '/dashboard'
   },
   {
+    title: 'Профиль админа',
+    group: 'apps',
+    icon: 'tune',
+    name: 'Profile',
+    href: '/profile'
+  },
+  {
     title: 'Настройки',
     group: 'apps',
     icon: 'tune',
@@ -16,33 +23,33 @@ const Menu = [{
     href: '/setup'
   },
   {
+    title: 'Настройка API',
+    group: 'apps',
+    icon: 'tune',
+    name: 'SetupApi',
+    href: '/setupApi'
+  },
+  {
     title: 'Справочники',
     group: 'spravochnik',
-    component: 'widgets',
+    component: 'refer',
     icon: 'widgets',
     items: [{
-        name: 'social',
+        name: 'kappers',
         title: 'Капперы',
         href: '/spavochnik/kapers/list'
       },
       {
-        name: 'statistic',
-        title: 'События',
-        badge: 'new',
-        href: '/widgets/statistic'
-      },
-      {
-        name: 'chart',
-        title: 'Актуальные прогнозы',
-        href: '/widgets/statistic'
-      },
-      {
-        name: 'list',
+        name: 'bucmekers',
         title: 'Букмекерские конторы',
         href: '/spavochnik/bucmekers'
-      },
+      }
     ]
-  },
+  }
+
+
+  ,
+  /*
   {
     title: 'Chat',
     group: 'apps',
@@ -303,7 +310,7 @@ const Menu = [{
         href: '/forms/editors'
       },
     ]
-  },
+  },*/
   {
     divider: true
   },

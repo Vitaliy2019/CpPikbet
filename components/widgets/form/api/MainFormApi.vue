@@ -1,20 +1,32 @@
 <template>
   <v-form v-model="valid">
-    <v-subheader class="pa-0 mt-3">Системные настройки</v-subheader>
-
-    <v-text-field
-      v-model="item.Value"
-      v-for="item in dataSetup"
-      :key="item.Id"
-      :label="item.Name"
-      :name="'it'+item.Id"
-      placeholder="Введите значение"
-      :value="item.Value"
-      v-validate="'required'"
-      :data-vv-name="'name'+item.Id"
-      :error-messages="errors.collect('name'+item.Id)"
-      required
-    ></v-text-field>
+    <v-subheader class="pa-0 mt-3">Данные API</v-subheader>
+    <v-select
+      v-model="country"
+      :items="ApiCountries"
+      @change="changeCounty"
+      item-value="country_id"
+      item-text="country_name"
+      label="Выберите страну"
+      outline
+    ></v-select>
+    <v-select
+      v-model="competition"
+      @change="changeCompetition"
+      :items="competitions"
+      item-value="league_id"
+      item-text="league_name"
+      label="Выберите лигу"
+      outline
+    ></v-select>
+    <v-select
+      v-model="team"
+      :items="teams"
+      item-value="team_key"
+      item-text="team_name"
+      label="Выберите команду"
+      outline
+    ></v-select>
 
     <div class="form-btn">
       <v-btn outline @click="submit" color="primary">Сохранить</v-btn>
@@ -29,24 +41,40 @@ export default {
   $_veeValidate: {
     validator: "new"
   },
-
   data() {
     return {
-      dataSetup: [],
-      formModel: {
-        country: null
-      },
+      country: 0,
+      competitions: [],
+      competition: 0,
+      teams: [],
+      team: "",
       valid: true
     };
   },
+  computed: {
+    ApiCountries() {
+      return this.$store.getters.getApiCountries;
+    }
+  },
   async created() {
-    const { setups } = await this.$axios.$get("/api/App/getsetup");
-    this.dataSetup = setups;
+    //const { setups } = await this.$axios.$get("/api/App/getsetup");
+    //this.dataSetup = setups;
   },
   mounted() {
     this.$validator.localize("ru", this.dictionary);
   },
   methods: {
+    async changeCompetition() {
+      this.teams = await this.$axios.$get(
+        `/api/Api/getTeams?lid=${this.competition}`
+      );
+      console.log(this.teams);
+    },
+    async changeCounty() {
+      this.competitions = await this.$axios.$get(
+        `/api/Api/getСompetitions?cid=${this.country}`
+      );
+    },
     submit() {
       this.$validator.validateAll().then(async isValid => {
         if (isValid) {
@@ -77,7 +105,7 @@ export default {
       });
     },
     clear() {
-      this.formModel = {};
+      //this.formModel = {};
       this.$validator.reset();
     }
   }
