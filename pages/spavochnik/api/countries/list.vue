@@ -25,6 +25,7 @@
           <v-icon>cloud_download</v-icon>
         </v-btn>
       </el-tooltip>
+
       <el-tooltip effect="dark" content="Обновить">
         <v-btn icon dark color="primary" @click="getList">
           <v-icon>autorenew</v-icon>
@@ -104,6 +105,14 @@
     </div>
     <set-fieldslang-ref title="Показать / скрыть поля" />
     <form-edit></form-edit>
+    <v-dialog v-model="dialog" hide-overlay persistent width="300">
+      <v-card color="primary" dark>
+        <v-card-text>
+          Данные загружаются, подождите пожалуйста
+          <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -115,7 +124,7 @@ export default {
   components: { SetFieldslangRef, FormEdit },
   data() {
     return {
-      // listLoading: false,
+      dialog: false,
       search: "",
       selected: [],
       totalDesserts: 0,
@@ -156,15 +165,28 @@ export default {
   },
   methods: {
     async loadDataApi() {
-      debugger;
-      const { rc } = await this.$axios.$get("/api/Api/loadDataApi");
-      if (rc === "ok") {
-        this.getList();
-      }
-      this.$notify({
-        title: "Выполнено!",
-        type: "success",
-        message: "Данные загружены"
+      this.$confirm(
+        "Перед загрузкой данных ранее загруженные данные будут удалены из базы данных. Подтверждаете удаление?",
+        "Внимание!",
+        {
+          confirmButtonText: "OK",
+          cancelButtonText: "Отмена",
+          type: "warning",
+          center: true
+        }
+      ).then(async () => {
+        this.dialog = true;
+        const { rc } = await this.$axios.$get("/api/Api/loadDataApi");
+        if (rc === "ok") {
+          this.getList();
+          this.dialog = false;
+
+          this.$notify({
+            title: "Выполнено!",
+            type: "success",
+            message: "Данные загружены"
+          });
+        }
       });
     },
     handleInsertItem() {
@@ -184,8 +206,9 @@ export default {
         }
       ).then(async () => {
         if (this.multipleSelection.length > 0) {
+          debugger;
           const { rc } = await this.$axios.$post(
-            "/api/Kapers/deleteall",
+            "/api/Countries/deleteAll",
             this.multipleSelection
           );
           if (rc === "ok") {
@@ -203,48 +226,12 @@ export default {
         }
       });
     },
-    handleCopy() {
-      this.$confirm("Вы подтверждаете копирование", "Внимание!", {
-        confirmButtonText: "OK",
-        cancelButtonText: "Отмена",
-        type: "warning",
-        center: true
-      }).then(async () => {
-        // var e = this
-        // let data = new FormData();
-        if (this.multipleSelection.length > 0) {
-          const { rc } = await this.$axios.$post(
-            "/api/Kapers/copy",
-            this.multipleSelection
-          );
-          if (rc === "ok") {
-            this.getList();
-            this.$message({
-              type: "success",
-              message: "Выбранные каперы скопированы!"
-            });
-          } else {
-            this.$message({
-              type: "error",
-              message: rc
-            });
-          }
-        }
-      });
-    },
+
     handleSetupFields() {
       this.$store.commit("SET_DIALOGVISIBLE", true);
     },
     handleFilter() {
       this.listQuery.Page = 1;
-      /*if (
-        this.listQuery.Title ===
-        "" &&
-        this.listQuery.Value4 === "2" &&
-        this.listQuery.ValueS !== ""
-      ) {
-        this.listQuery.valueP = "";
-      }*/
       this.getList();
     },
     handleSelectionChange(val) {
@@ -260,12 +247,9 @@ export default {
     },
     async getList() {
       this.prGetList = true;
-      const { countries, total } = await this.$axios.$get(
-        "/api/Api/getCountries",
-        {
-          params: this.listQuery
-        }
-      );
+      const { countries, total } = await this.$axios.$get("/api/Countries", {
+        params: this.listQuery
+      });
       this.desserts = countries;
       this.totalDesserts = total;
       this.prGetList = false;
@@ -284,7 +268,9 @@ export default {
       })
         .then(async () => {
           debugger;
-          const { rc } = await this.$axios.$delete(`/api/Kapers/${item.Id}`); //, {
+          const { rc } = await this.$axios.$delete("/api/Countries", {
+            params: item
+          }); //, {
           if (rc === "ok") {
             await this.getList();
             this.$notify({

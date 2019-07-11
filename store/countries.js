@@ -34,10 +34,24 @@ export const actions = {
     commit
   }, data) {
     commit('SET_PR_GETLIST', data)
+  },
+  async setCountrie({
+    commit
+  }, data) {
+
+    const {
+      rc
+    } = await this.$axios.$post('/api/Countries', data)
+    if (rc === 'ok') {
+      commit('SET_COUNTRIE', data)
+      commit('SET_PR_OPERATION', 'ok')
+    } else {
+      commit('SET_PR_OPERATION', 'no')
+    }
   }
 }
 export const getters = {
-  getKaper(state) {
+  getCountrie(state) {
     return state.countrie
   },
   getDialogForm(state) {

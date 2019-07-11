@@ -2,7 +2,7 @@
   <v-dialog fullscreen hide-overlay transition="dialog-bottom-transition" v-model="dialogForm">
     <v-card>
       <v-card-title>
-        <span class="headline">Редактируем капера</span>
+        <span class="headline">Редактируем страну</span>
       </v-card-title>
 
       <v-card-text>
@@ -10,98 +10,18 @@
           <v-container>
             <v-layout wrap>
               <v-flex>
-                <pan-thumb :image="kaper.Avatar"/>
-                <br>
-                <v-btn color="primary" @click="imagecropperShow=true">
-                  <v-icon>cloud_upload</v-icon>Обновить
-                </v-btn>
-                <image-cropper
-                  v-show="imagecropperShow"
-                  :width="300"
-                  :height="300"
-                  :key="imagecropperKey"
-                  url="https://httpbin.org/post"
-                  lang-type="en"
-                  @close="close"
-                  @crop-upload-success="cropSuccess"
-                />
+                <v-text-field readonly v-model="countrie.country_id" label="Id"></v-text-field>
               </v-flex>
               <v-flex>
-                <v-text-field required :rules="loginRules" v-model="kaper.Login" label="Логин"></v-text-field>
+                <v-text-field
+                  required
+                  :rules="nameRules"
+                  v-model="countrie.country_name"
+                  label="Наименование"
+                ></v-text-field>
               </v-flex>
               <v-flex>
-                <v-text-field v-model="kaper.City" label="Город"></v-text-field>
-              </v-flex>
-              <v-flex>
-                <v-select v-model="kaper.Pol" :items="items" label="Выберите пол"></v-select>
-              </v-flex>
-              <v-flex>
-                <v-text-field v-model="kaper.Family" label="Фамилия"></v-text-field>
-              </v-flex>
-              <v-flex>
-                <v-text-field v-model="kaper.Fnme" label="Имя"></v-text-field>
-              </v-flex>
-              <v-flex>
-                <v-text-field v-model="kaper.Email" label="E-mail"></v-text-field>
-              </v-flex>
-              <v-flex>
-                <v-text-field v-model="kaper.Tel" label="Телефон"></v-text-field>
-              </v-flex>
-              <v-flex>
-                <v-text-field v-model="kaper.N_yandex_dengi" label="Яндекс.Деньги"></v-text-field>
-              </v-flex>
-              <v-flex>
-                <v-text-field required :rules="passwRules" v-model="kaper.Pasword" label="Пароль"></v-text-field>
-              </v-flex>
-              <v-flex>
-                <label>Счет</label>
-                <br>
-                <el-input-number size="mini" v-model="kaper.Score" :min="1"></el-input-number>
-              </v-flex>
-              <v-flex>
-                <label>Рейтинг</label>
-                <br>
-                <v-rating v-model="kaper.Rating" color="yellow accent-4" hover size="18"></v-rating>
-              </v-flex>
-              <v-flex>
-                <label>Остаток</label>
-                <br>
-                <el-input-number size="mini" v-model="kaper.Count_stavok" :min="1"></el-input-number>
-              </v-flex>
-              <v-flex>
-                <label>Доход</label>
-                <br>
-                <el-input-number size="mini" v-model="kaper.Dodhod" :min="1"></el-input-number>
-              </v-flex>
-              <v-flex>
-                <label>Проход</label>
-                <br>
-                <el-input-number size="mini" v-model="kaper.Prohod" :min="1"></el-input-number>
-              </v-flex>
-              <v-flex>
-                <label>Ср. коэфф</label>
-                <br>
-                <el-input-number size="mini" v-model="kaper.Sr_koeff" :min="1"></el-input-number>
-              </v-flex>
-              <v-flex>
-                <label>ROI</label>
-                <br>
-                <el-input-number size="mini" v-model="kaper.Roi" :min="1"></el-input-number>
-              </v-flex>
-              <v-flex>
-                <label>Выигрыш</label>
-                <br>
-                <el-input-number size="mini" v-model="kaper.Vyigreshey" :min="1"></el-input-number>
-              </v-flex>
-              <v-flex>
-                <label>Возвраты</label>
-                <br>
-                <el-input-number size="mini" v-model="kaper.Vozvratov" :min="1"></el-input-number>
-              </v-flex>
-              <v-flex>
-                <label>Проигрыш</label>
-                <br>
-                <el-input-number size="mini" v-model="kaper.Proigreshey" :min="1"></el-input-number>
+                <v-checkbox v-model="countrie.Visible" label="Видимость"></v-checkbox>
               </v-flex>
             </v-layout>
           </v-container>
@@ -117,59 +37,36 @@
   </v-dialog>
 </template>
 <script>
-import ImageCropper from "@/components/widgets/ImageCropper";
-import PanThumb from "@/components/widgets/PanThumb";
 export default {
-  name: "form-edit-kaper",
-  components: { ImageCropper, PanThumb },
+  name: "form-edit-countries",
   data() {
     return {
-      items: ["мужской", "женский"],
-      imagecropperShow: false,
-      imagecropperKey: 0,
-      //image: "https://wpimg.wallstcn.com/577965b9-bb9e-4e02-9f0c-095b41417191",
-
       valid: true,
-      loginRules: [v => !!v || "Требуется логин капера"],
-      passwRules: [v => !!v || "Требуется пароль капера"],
-      imgDefault: "https://randomuser.me/api/portraits/men/1.jpg"
+      nameRules: [v => !!v || "Требуется наименование страны"]
     };
   },
   computed: {
-    image: {
-      get() {
-        return this.$store.getters["kaper/getImageData"];
-      },
-      set(newValue) {
-        this.$store.dispatch("kaper/setImageData", newValue);
-      }
-    },
     dialogForm: {
       get() {
-        return this.$store.getters["kaper/getDialogForm"];
+        return this.$store.getters["countries/getDialogForm"];
       },
       set(newValue) {
-        this.$store.commit("kaper/SET_DIALOG_FORM", newValue);
+        this.$store.commit("countries/SET_DIALOG_FORM", newValue);
       }
     },
-    kaper: {
+    countrie: {
       get() {
-        return this.$store.getters["kaper/getKaper"];
+        return this.$store.getters["countries/getCountrie"];
       },
       async set(newValue) {
-        await this.$store.dispatch("kaper/setKapper", newValue);
+        await this.$store.dispatch("countries/setCountrie", newValue);
       }
     },
     prOperation() {
-      return this.$store.getters["kaper/getPrOperation"];
+      return this.$store.getters["countries/getPrOperation"];
     }
   },
   methods: {
-    cropSuccess(resData) {
-      this.imagecropperShow = false;
-      this.imagecropperKey = this.imagecropperKey + 1;
-      this.kaper.Avatar = resData.files.avatar;
-    },
     close() {
       this.imagecropperShow = false;
     },
@@ -182,16 +79,14 @@ export default {
       }
     },
     async insertItem() {
-      ;
-      await this.$store.dispatch("kaper/setKapper", this.kaper);
+      await this.$store.dispatch("countries/setCountrie", this.countrie);
       if (this.prOperation === "ok") {
-        ;
-        this.$store.dispatch("kaper/setPrGetList", true);
+        this.$store.dispatch("countries/setPrGetList", true);
         this.dialogForm = false;
         this.$notify({
           title: "Выполнено",
           type: "success",
-          message: "Капер изменен"
+          message: "Страна изменена"
         });
       } else {
         this.$notify({
