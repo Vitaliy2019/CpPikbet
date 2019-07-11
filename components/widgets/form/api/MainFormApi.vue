@@ -1,6 +1,8 @@
 <template>
   <v-form v-model="valid">
-    <v-subheader class="pa-0 mt-3">Данные API</v-subheader>
+    <v-subheader class="pa-0 mt-3">Здесь вы можете загрузть данные из API</v-subheader>
+    <v-btn @click="loadData" class="primary">Загрузить данные в базу из API</v-btn>
+    <v-progress-linear :indeterminate="indeterminate"></v-progress-linear>
     <v-select
       v-model="country"
       :items="ApiCountries"
@@ -43,6 +45,7 @@ export default {
   },
   data() {
     return {
+      indeterminate: false,
       country: 0,
       competitions: [],
       competition: 0,
@@ -64,6 +67,11 @@ export default {
     this.$validator.localize("ru", this.dictionary);
   },
   methods: {
+    async loadData() {
+      this.indeterminate = true;
+      const { rc } = await this.$axios.$get("/api/Api/loadDataApi");
+      
+    },
     async changeCompetition() {
       this.teams = await this.$axios.$get(
         `/api/Api/getTeams?lid=${this.competition}`

@@ -45,10 +45,25 @@ const Menu = [{
         href: '/spavochnik/bucmekers'
       }
     ]
-  }
+  },
 
-
-  ,
+  {
+    title: 'API',
+    group: 'api',
+    component: 'refer',
+    icon: 'widgets',
+    items: [{
+        name: 'countrys',
+        title: 'Страны',
+        href: '/spavochnik/api/countries/list'
+      },
+      {
+        name: 'competitions',
+        title: 'Соревнования',
+        href: '/spavochnik/api/competition'
+      }
+    ]
+  },
   /*
   {
     title: 'Chat',
