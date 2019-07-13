@@ -60,7 +60,11 @@ const Menu = [{
       {
         name: 'competitions',
         title: 'Соревнования',
-        href: '/spavochnik/api/competition'
+        href: '/spavochnik/api/competitions/list'
+      }, {
+        name: 'events',
+        title: 'События',
+        href: '/spavochnik/api/events/list'
       }
     ]
   },
