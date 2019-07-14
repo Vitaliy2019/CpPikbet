@@ -105,7 +105,8 @@ module.exports = {
   plugins: [
     '@/plugins/vuetify',
     '@/plugins/vee-validate',
-    '@/plugins/element-ui'
+    '@/plugins/element-ui',
+    "@/plugins/vue-date-format.js",
   ],
 
 

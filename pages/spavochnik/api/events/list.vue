@@ -18,22 +18,32 @@
         </el-select>
       </el-tooltip>
       <el-tooltip effect="dark" content="Введите значение для поиска и фильтраци">
+        <el-input
+          v-model="listQuery.ValueC"
+          prefix-icon="el-icon-search"
+          clearable
+          style="width: 200px;"
+          class="filter-item"
+          placeholder="Введите значение"
+          @keyup.enter.native="handleFilter"
+        />
+      </el-tooltip>
+      <el-tooltip effect="dark" content="Введите значение для поиска и фильтраци">
         <el-select
           clearable
           @change="handleFilter"
-          v-model="listQuery.ValueC"
-          placeholder="Выберите соревнование"
+          v-model="listQuery.Status"
+          placeholder="Выберите статус"
         >
           <el-option
-            v-for="item in selected"
-            :key="item.league_id"
-            :label="item.league_name"
-            :value="item.league_name"
+            v-for="(item, index) in listStatusMatch"
+            :key="index"
+            :label="item.Match_status"
+            :value="item.Match_status"
             @keyup.enter.native="handleFilter"
           ></el-option>
         </el-select>
       </el-tooltip>
-
       <el-tooltip effect="dark" content="Поиск">
         <v-btn icon dark medium color="primary" @click="handleFilter">
           <v-icon>search</v-icon>
@@ -83,7 +93,14 @@
           :property="fruit.nameField"
         >
           <template slot-scope="scope">
-            <span style="margin-left: 10px">{{ scope.row[fruit.nameField] }}</span>
+            <vueDateFormat
+              v-if="fruit.nameField==='match_date'"
+              :format="formatDate.format"
+              :time="dateCreate"
+              :type="formatDate.type"
+              :auto-update="formatDate.autoUpdate"
+            />
+            <span v-else style="margin-left: 10px">{{ scope.row[fruit.nameField] }}</span>
           </template>
         </el-table-column>
       </template>
@@ -125,6 +142,29 @@
         </v-card-text>
       </v-card>
     </v-dialog>
+    <v-dialog v-model="dialogDate" hide-overlay persistent width="500">
+      <v-card color="primary" dark>
+        <v-card-text>
+          Выберите период загрузки
+          <el-form :model="rulesForm" :rules="rules" ref="ruleForm">
+            <el-form-item prop="value1">
+              <el-date-picker
+                v-model="rulesForm.value1"
+                type="daterange"
+                range-separator="до"
+                start-placeholder="Начальная дата"
+                end-placeholder="Конечная дата"
+                value-format="yyyy-MM-dd"
+              ></el-date-picker>
+              {{rulesForm.Fvalue1}}
+            </el-form-item>
+            <el-form-item>
+              <v-btn outline @click="loadData('ruleForm')" color="white">Загрузить данные</v-btn>
+            </el-form-item>
+          </el-form>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -136,7 +176,17 @@ export default {
   components: { SetFieldslangRef, FormEdit },
   data() {
     return {
+      formatDate: {
+        format: "dd.MM.yyyy",
+        time: new Date(), // Время или строка(eg:'2017-12-12'),
+        type: "fmt",
+        autoUpdate: false
+      },
+      rulesForm: {
+        value1: ""
+      },
       dialog: false,
+      dialogDate: false,
       search: "",
       selected: [],
       totalDesserts: 0,
@@ -145,7 +195,8 @@ export default {
         Page: 1,
         Limit: 20,
         Tile: "",
-        ValueC: ""
+        ValueC: "",
+        Status: ""
       },
       formThead: [
         { nameField: "match_id", lngName: "Id матча", chkbD: true },
@@ -232,8 +283,18 @@ export default {
         },
         { nameField: "match_live", lngName: "Живой матч", chkbD: false }
       ],
-
-      multipleSelection: []
+      listStatusMatch: [],
+      multipleSelection: [],
+      rules: {
+        value1: [
+          {
+            type: "array",
+            required: true,
+            message: "Пожалуйста заполните диапазон дат",
+            trigger: "change"
+          }
+        ]
+      }
     };
   },
   computed: {
@@ -255,11 +316,15 @@ export default {
   async created() {
     const { countries } = await this.$axios.$get("/api/Countries/getListAll");
     this.selected = countries;
+    const { statusMatches } = await this.$axios.$get(
+      "/api/Events/getStatusMatch"
+    );
+    this.listStatusMatch = statusMatches;
     this.$store.commit("SET_FORMTHEAD", this.formThead);
     this.getList();
   },
   methods: {
-    async loadDataApi() {
+    loadDataApi() {
       this.$confirm(
         "Перед загрузкой данных ранее загруженные данные будут удалены из базы данных. Подтверждаете удаление?",
         "Внимание!",
@@ -269,20 +334,29 @@ export default {
           type: "warning",
           center: true
         }
-      ).then(async () => {
-        this.dialog = true;
-        const { rc } = await this.$axios.$get(
-          "/api/Api/loadDataApiCompetitions"
-        );
-        if (rc === "ok") {
-          this.getList();
-          this.dialog = false;
-
-          this.$notify({
-            title: "Выполнено!",
-            type: "success",
-            message: "Данные загружены"
+      ).then(() => {
+        this.dialogDate = true;
+        this.loadData();
+      });
+    },
+    loadData(formName) {
+      this.$refs[formName].validate(async valid => {
+        if (valid) {
+          this.dialogDate = false;
+          this.dialog = true;
+          const { rc } = await this.$axios.$get("/api/Api/loadDataApiEvents", {
+            params: this.rulesForm.value1
           });
+          if (rc === "ok") {
+            this.getList();
+            this.dialog = false;
+
+            this.$notify({
+              title: "Выполнено!",
+              type: "success",
+              message: "Данные загружены"
+            });
+          }
         }
       });
     },
@@ -305,7 +379,7 @@ export default {
         if (this.multipleSelection.length > 0) {
           debugger;
           const { rc } = await this.$axios.$post(
-            "/api/Competitions/deleteAll",
+            "/api/Events/deleteAll",
             this.multipleSelection
           );
           if (rc === "ok") {
@@ -344,7 +418,7 @@ export default {
     },
     async getList() {
       this.prGetList = true;
-      const { events, total } = await this.$axios.$get("/api/Competitions", {
+      const { events, total } = await this.$axios.$get("/api/Events", {
         params: this.listQuery
       });
       this.desserts = events;
@@ -353,7 +427,7 @@ export default {
     },
 
     editItem(item) {
-      this.$store.commit("events/SET_COMPETITIONS", Object.assign({}, item));
+      this.$store.commit("events/SET_EVENTS", Object.assign({}, item));
       this.$store.commit("events/SET_DIALOG_FORM", true);
     },
     deleteItem(item) {
@@ -365,7 +439,7 @@ export default {
       })
         .then(async () => {
           debugger;
-          const { rc } = await this.$axios.$delete("/api/Competitions", {
+          const { rc } = await this.$axios.$delete("/api/Events", {
             params: item
           }); //, {
           if (rc === "ok") {

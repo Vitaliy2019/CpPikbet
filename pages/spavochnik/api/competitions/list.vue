@@ -131,6 +131,7 @@ export default {
   components: { SetFieldslangRef, FormEdit },
   data() {
     return {
+      dialogDate: false,
       dialog: false,
       search: "",
       selected: [],
