@@ -94,13 +94,17 @@
         >
           <template slot-scope="scope">
             <vueDateFormat
-              v-if="fruit.nameField==='match_date'"
+              v-if="fruit.nameField==='Odd_date'"
               :format="formatDate.format"
               :time="dateCreate"
               :type="formatDate.type"
               :auto-update="formatDate.autoUpdate"
             />
-            <span v-else style="margin-left: 10px">{{ scope.row[fruit.nameField] }}</span>
+            <span
+              v-else-if="fruit.nameField==='Match_id' || fruit.nameField==='Odd_bookmakers'"
+              style="margin-left: 10px"
+            >{{ scope.row[fruit.nameField] }}</span>
+            <span v-else style="margin-left: 10px">{{ scope.row[fruit.nameField].toFixed(2) }}</span>
           </template>
         </el-table-column>
       </template>
@@ -195,93 +199,129 @@ export default {
         Page: 1,
         Limit: 20,
         Tile: "",
-        ValueC: "",
-        Status: ""
+        ValueC: null
       },
       formThead: [
-        { nameField: "match_id", lngName: "Id матча", chkbD: true },
-        { nameField: "country_id", lngName: "Id страны", chkbD: false },
-        { nameField: "country_name", lngName: "Страна", chkbD: true },
-        { nameField: "league_id", lngName: "Id соревнования", chkbD: false },
+        { nameField: "Match_id", lngName: "Id матча", chkbD: true },
+        { nameField: "Odd_bookmakers", lngName: "Букмекер", chkbD: false },
+        { nameField: "Odd_date", lngName: "Дата", chkbD: true },
+        { nameField: "Odd_1", lngName: "odd 1", chkbD: false },
         {
-          nameField: "league_name",
-          lngName: "Соревнования",
+          nameField: "Odd_x",
+          lngName: "odd x",
           chkbD: true
         },
-        { nameField: "match_date", lngName: "Дата матча", chkbD: true },
-        { nameField: "match_status", lngName: "Статус матча", chkbD: true },
-        { nameField: "match_time", lngName: "Время матча", chkbD: true },
+        { nameField: "Odd_2", lngName: "odd 2", chkbD: true },
+        { nameField: "Odd_1x", lngName: "odd 1x", chkbD: true },
+        { nameField: "Odd_12", lngName: "odd 12", chkbD: true },
         {
-          nameField: "match_hometeam_id",
-          lngName: "Id ком. хоз.",
-          chkbD: false
-        },
-        {
-          nameField: "match_hometeam_name",
-          lngName: "Имя команды хозяйки",
+          nameField: "Odd_x2",
+          lngName: "odd x2",
           chkbD: true
         },
         {
-          nameField: "match_hometeam_score",
-          lngName: "Голы ком. хоз.",
+          nameField: "Ah_4_5_1",
+          lngName: "ah-4.5_1",
+          chkbD: false
+        },
+        {
+          nameField: "Ah_4_5_2",
+          lngName: "ah-4.5_1",
+          chkbD: false
+        },
+        {
+          nameField: "Ah_4_1",
+          lngName: "ah-4_1",
           chkbD: true
         },
         {
-          nameField: "match_awayteam_name",
-          lngName: "Команда гость",
-          chkbD: true
-        },
-        {
-          nameField: "match_awayteam_id",
-          lngName: "Id ком. гость",
+          nameField: "Ah_4_2",
+          lngName: "ah-4_2",
           chkbD: false
         },
         {
-          nameField: "match_awayteam_score",
-          lngName: "Голы ком. гость",
-          chkbD: true
-        },
-        {
-          nameField: "match_hometeam_halftime_score",
-          lngName: "КХ голы до перерыва",
+          nameField: "Ah_3_5_1",
+          lngName: "ah-3.5_1",
           chkbD: false
         },
         {
-          nameField: "match_awayteam_halftime_score",
-          lngName: "КГ голы до перерыва",
+          nameField: "Ah_3_5_2",
+          lngName: "ah-3.5_2",
           chkbD: false
         },
         {
-          nameField: "match_hometeam_extra_score",
-          lngName: "КХ голы после перер",
+          nameField: "Ah_3_1",
+          lngName: "ah-3_1",
           chkbD: false
         },
         {
-          nameField: "match_awayteam_extra_score",
-          lngName: "КГ голы после перер",
+          nameField: "Ah_3_2",
+          lngName: "ah-3_2",
           chkbD: false
         },
         {
-          nameField: "match_hometeam_penalty_score",
-          lngName: "Голы КХ по пенальти",
+          nameField: "Ah_2_5_1",
+          lngName: "ah-2.5_1",
           chkbD: false
         },
         {
-          nameField: "match_awayteam_penalty_score",
-          lngName: "Голы КГ по пенальти",
-          chkbD: true
-        },
-        {
-          nameField: "match_hometeam_system",
-          lngName: "КХ система",
+          nameField: "Ah_2_5_2",
+          lngName: "ah-2.5_2",
           chkbD: false
         },
         {
-          nameField: "match_awayteam_system",
-          lngName: "КГ система",
+          nameField: "Ah_2_1",
+          lngName: "ah-2_1",
           chkbD: false
         },
-        { nameField: "match_live", lngName: "Живой матч", chkbD: false }
+        {
+          nameField: "Ah_2_2",
+          lngName: "ah-2_1",
+          chkbD: false
+        },
+        {
+          nameField: "Ah_1_5_1",
+          lngName: "ah-1.5_1",
+          chkbD: false
+        },
+        { nameField: "Ah_1_5_2", lngName: "ah-1.5_1", chkbD: false },
+        { nameField: "Ah_1_1", lngName: "ah-1_1", chkbD: false },
+        { nameField: "Ah_1_2", lngName: "ah-1_2", chkbD: false },
+
+        { nameField: "Ah_p4_5_1", lngName: "ah+4.5_1", chkbD: false },
+        { nameField: "Ah_p4_5_2", lngName: "ah+4.5_2", chkbD: false },
+        { nameField: "Ah_p4_1", lngName: "ah+4_1", chkbD: false },
+        { nameField: "Ah_p4_2", lngName: "ah+4_2", chkbD: false },
+        { nameField: "Ah_p3_1", lngName: "ah+3_1", chkbD: false },
+        { nameField: "Ah_p3_2", lngName: "ah+3_2", chkbD: false },
+        { nameField: "Ah_p2_5_1", lngName: "ah+2.5_1", chkbD: false },
+        { nameField: "Ah_p2_5_2", lngName: "ah+2.5_1", chkbD: false },
+        { nameField: "Ah_p2_1", lngName: "ah+2_1", chkbD: false },
+        { nameField: "Ah_p2_2", lngName: "ah+2_2", chkbD: false },
+        { nameField: "Ah_p1_5_1", lngName: "ah+1.5_1", chkbD: false },
+        { nameField: "Ah_p1_5_2", lngName: "ah+1.5_1", chkbD: false },
+        { nameField: "Ah_p1_1", lngName: "ah+1_1", chkbD: false },
+        { nameField: "Ah_p1_2", lngName: "ah+1_2", chkbD: false },
+        { nameField: "Ah0_1", lngName: "ah0_1", chkbD: false },
+        { nameField: "Ah0_2", lngName: "ah0_2", chkbD: false },
+        { nameField: "O_0_5", lngName: "o+0.5", chkbD: false },
+        { nameField: "O_1", lngName: "o+1", chkbD: false },
+        { nameField: "U_1", lngName: "u+1", chkbD: false },
+        { nameField: "O_1_5", lngName: "o+1.5", chkbD: false },
+        { nameField: "U_1_5", lngName: "u+1.5", chkbD: false },
+        { nameField: "O_2", lngName: "o+2", chkbD: false },
+        { nameField: "U_2", lngName: "u+2", chkbD: false },
+        { nameField: "O_2_5", lngName: "o+2.5", chkbD: false },
+        { nameField: "U_2_5", lngName: "u+2.5", chkbD: false },
+        { nameField: "O_3", lngName: "o+3", chkbD: false },
+        { nameField: "U_3", lngName: "u+3", chkbD: false },
+        { nameField: "O_3_5", lngName: "o+3.5", chkbD: false },
+        { nameField: "U_3_5", lngName: "u+3.5", chkbD: false },
+        { nameField: "O_4_5", lngName: "u+4.5", chkbD: false },
+        { nameField: "O_5_5", lngName: "o+5.5", chkbD: false },
+        { nameField: "U_5_5", lngName: "u+5.5", chkbD: false },
+        { nameField: "Bts_yes", lngName: "bts_yes", chkbD: false },
+        { nameField: "Bts_no", lngName: "bts_no", chkbD: false }
       ],
       listStatusMatch: [],
       multipleSelection: [],
@@ -303,23 +343,23 @@ export default {
     },
     prGetList: {
       get() {
-        if (this.$store.getters["events/getPrGetList"]) {
+        if (this.$store.getters["odds/getPrGetList"]) {
           this.getList();
         }
-        return this.$store.getters["events/getPrGetList"];
+        return this.$store.getters["odds/getPrGetList"];
       },
       set(newValue) {
-        this.$store.dispatch("events/setPrGetList", newValue);
+        this.$store.dispatch("odds/setPrGetList", newValue);
       }
     }
   },
   async created() {
-    const { countries } = await this.$axios.$get("/api/Countries/getListAll");
-    this.selected = countries;
-    const { statusMatches } = await this.$axios.$get(
-      "/api/Events/getStatusMatch"
+    const { events } = await this.$axios.$get("/api/Odds/getMatch");
+    this.selected = events;
+    /*const { statusMatches } = await this.$axios.$get(
+      "/api/Odds/getStatusMatch"
     );
-    this.listStatusMatch = statusMatches;
+    this.listStatusMatch = statusMatches;*/
     this.$store.commit("SET_FORMTHEAD", this.formThead);
     this.getList();
   },
@@ -344,7 +384,7 @@ export default {
         if (valid) {
           this.dialogDate = false;
           this.dialog = true;
-          const { rc } = await this.$axios.$get("/api/Api/loadDataApiEvents", {
+          const { rc } = await this.$axios.$get("/api/Api/loadDataApiOdds", {
             params: this.rulesForm.value1
           });
           if (rc === "ok") {
@@ -361,8 +401,8 @@ export default {
       });
     },
     handleInsertItem() {
-      this.$store.commit("events/RESET");
-      this.$store.commit("events/SET_DIALOG_FORM", true);
+      this.$store.commit("odds/RESET");
+      this.$store.commit("odds/SET_DIALOG_FORM", true);
     },
 
     handleDeleteAll() {
@@ -379,7 +419,7 @@ export default {
         if (this.multipleSelection.length > 0) {
           debugger;
           const { rc } = await this.$axios.$post(
-            "/api/Events/deleteAll",
+            "/api/Odds/deleteAll",
             this.multipleSelection
           );
           if (rc === "ok") {
@@ -417,18 +457,19 @@ export default {
       this.getList();
     },
     async getList() {
+      debugger;
       this.prGetList = true;
-      const { events, total } = await this.$axios.$get("/api/Events", {
+      const { odds, total } = await this.$axios.$get("/api/Odds", {
         params: this.listQuery
       });
-      this.desserts = events;
+      this.desserts = odds;
       this.totalDesserts = total;
       this.prGetList = false;
     },
 
     editItem(item) {
-      this.$store.commit("events/SET_EVENTS", Object.assign({}, item));
-      this.$store.commit("events/SET_DIALOG_FORM", true);
+      this.$store.commit("odds/SET_ODDS", Object.assign({}, item));
+      this.$store.commit("odds/SET_DIALOG_FORM", true);
     },
     deleteItem(item) {
       this.$confirm("Вы подтверждаете удаление?", "Внимание", {
@@ -439,14 +480,14 @@ export default {
       })
         .then(async () => {
           debugger;
-          const { rc } = await this.$axios.$delete("/api/Events", {
+          const { rc } = await this.$axios.$delete("/api/Odds", {
             params: item
           }); //, {
           if (rc === "ok") {
             await this.getList();
             this.$notify({
               title: "Выполнено!",
-              message: "Событие успешно удалено",
+              message: "Коэффициент успешно удален",
               type: "success"
             });
           } else {
@@ -460,7 +501,7 @@ export default {
         .catch(e => {
           this.$message({
             type: "info",
-            message: "Удаленеие события отменено"
+            message: "Удаленеие коэффициента отменено"
           });
         });
     }

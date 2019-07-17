@@ -65,6 +65,10 @@ const Menu = [{
         name: 'events',
         title: 'События',
         href: '/spavochnik/api/events/list'
+      }, {
+        name: 'odds',
+        title: 'Коэффициенты',
+        href: '/spavochnik/api/odds/list'
       }
     ]
   },
