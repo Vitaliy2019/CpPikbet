@@ -96,7 +96,7 @@
             <vueDateFormat
               v-if="fruit.nameField==='match_date'"
               :format="formatDate.format"
-              :time="dateCreate"
+              :time="scope.row[fruit.nameField]"
               :type="formatDate.type"
               :auto-update="formatDate.autoUpdate"
             />

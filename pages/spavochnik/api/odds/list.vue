@@ -6,44 +6,42 @@
           clearable
           @change="handleFilter"
           v-model="listQuery.Tile"
-          placeholder="Выберите страну"
+          placeholder="Выберите букмекера"
         >
           <el-option
             v-for="item in selected"
             :key="item.country_id"
-            :label="item.country_name"
-            :value="item.country_name"
+            :label="item.odd_bookmakers"
+            :value="item.odd_bookmakers"
             @keyup.enter.native="handleFilter"
           ></el-option>
         </el-select>
-      </el-tooltip>
-      <el-tooltip effect="dark" content="Введите значение для поиска и фильтраци">
-        <el-input
-          v-model="listQuery.ValueC"
-          prefix-icon="el-icon-search"
-          clearable
-          style="width: 200px;"
-          class="filter-item"
-          placeholder="Введите значение"
-          @keyup.enter.native="handleFilter"
-        />
       </el-tooltip>
       <el-tooltip effect="dark" content="Введите значение для поиска и фильтраци">
         <el-select
           clearable
           @change="handleFilter"
-          v-model="listQuery.Status"
-          placeholder="Выберите статус"
+          v-model="listQuery.ValueM"
+          placeholder="Выберите событие"
         >
           <el-option
-            v-for="(item, index) in listStatusMatch"
-            :key="index"
-            :label="item.Match_status"
-            :value="item.Match_status"
+            v-for="item in selected"
+            :key="item.country_id"
+            :label="`${item.match_hometeam_name} - ${item.match_awayteam_name}`"
+            :value="item.match_id"
             @keyup.enter.native="handleFilter"
           ></el-option>
         </el-select>
       </el-tooltip>
+      <el-tooltip effect="dark" content="Введите значение для поиска и фильтраци">
+        <el-date-picker
+          v-model="listQuery.ValueC"
+          @keyup.enter.native="handleFilter"
+          type="date"
+          placeholder="Выбераит дату"
+        ></el-date-picker>
+      </el-tooltip>
+
       <el-tooltip effect="dark" content="Поиск">
         <v-btn icon dark medium color="primary" @click="handleFilter">
           <v-icon>search</v-icon>
@@ -96,7 +94,7 @@
             <vueDateFormat
               v-if="fruit.nameField==='Odd_date'"
               :format="formatDate.format"
-              :time="dateCreate"
+              :time="scope.row[fruit.nameField]"
               :type="formatDate.type"
               :auto-update="formatDate.autoUpdate"
             />
@@ -180,6 +178,10 @@ export default {
   components: { SetFieldslangRef, FormEdit },
   data() {
     return {
+      date: new Date().toISOString().substr(0, 10),
+      menu: false,
+      modal: false,
+      menu2: false,
       formatDate: {
         format: "dd.MM.yyyy",
         time: new Date(), // Время или строка(eg:'2017-12-12'),
@@ -199,7 +201,8 @@ export default {
         Page: 1,
         Limit: 20,
         Tile: "",
-        ValueC: null
+        ValueC: null,
+        ValueM: 0
       },
       formThead: [
         { nameField: "Match_id", lngName: "Id матча", chkbD: true },
