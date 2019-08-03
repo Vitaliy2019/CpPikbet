@@ -36,7 +36,8 @@
     "vuelidate": "^0.7.4",
     "vuetify": "^1.5.14",
     "vuetify-loader": "^1.2.0",
-    "vue-date-format": "^1.1.2"
+    "vue-date-format": "^1.1.2",
+    "@aspnet/signalr": "^1.1.4"
   },
   "devDependencies": {
     "nodemon": "^1.18.9",

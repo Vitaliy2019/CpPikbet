@@ -1,6 +1,6 @@
 const pkg = require('./package')
-
-
+const apiUrl = process.env.API_URL || 'https://localhost:5001'
+console.log("apiUrl", apiUrl)
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
 module.exports = {
@@ -15,7 +15,8 @@ module.exports = {
   axios: {
     // baseURL: // process.env.NODE_ENV !== 'production' ? 'http://localhost:59501' : ''
     //baseURL: 'https://localhost:5001'
-    baseURL: 'https://api.pikbet.ru'
+    //baseURL: 'https://api.pikbet.ru'
+    baseURL: apiUrl
   },
   auth: {
     strategies: {
@@ -107,6 +108,10 @@ module.exports = {
     '@/plugins/vee-validate',
     '@/plugins/element-ui',
     "@/plugins/vue-date-format.js",
+    {
+      src: '~/plugins/signalrHub',
+      ssr: false
+    }
   ],
 
 

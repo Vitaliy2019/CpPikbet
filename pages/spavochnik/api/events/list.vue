@@ -24,7 +24,7 @@
           clearable
           style="width: 200px;"
           class="filter-item"
-          placeholder="Введите значение"
+          placeholder="Введите лигу"
           @keyup.enter.native="handleFilter"
         />
       </el-tooltip>
@@ -145,7 +145,7 @@
     <v-dialog v-model="dialogDate" hide-overlay persistent width="500">
       <v-card color="primary" dark>
         <v-card-text>
-          Выберите период загрузки
+          Выберите период загрузки (не более 3 дней)
           <el-form :model="rulesForm" :rules="rules" ref="ruleForm">
             <el-form-item prop="value1">
               <el-date-picker
@@ -355,6 +355,13 @@ export default {
               title: "Выполнено!",
               type: "success",
               message: "Данные загружены"
+            });
+          } else {
+            this.dialog = false;
+            this.$notify({
+              title: "Ошибка!",
+              type: "error",
+              message: rc
             });
           }
         }

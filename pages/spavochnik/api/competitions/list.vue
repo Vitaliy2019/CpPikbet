@@ -204,6 +204,13 @@ export default {
             type: "success",
             message: "Данные загружены"
           });
+        }else{
+          this.dialog = false;
+          this.$notify({
+            title: "Ошибка!",
+            type: "error",
+            message: rc
+          })
         }
       });
     },

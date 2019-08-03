@@ -147,7 +147,7 @@
     <v-dialog v-model="dialogDate" hide-overlay persistent width="500">
       <v-card color="primary" dark>
         <v-card-text>
-          Выберите период загрузки
+          Выберите период загрузки (не более 3 дней)
           <el-form :model="rulesForm" :rules="rules" ref="ruleForm">
             <el-form-item prop="value1">
               <el-date-picker
@@ -202,7 +202,7 @@ export default {
         Limit: 20,
         Tile: "",
         ValueC: null,
-        ValueM: 0
+        ValueM: null
       },
       formThead: [
         { nameField: "Match_id", lngName: "Id матча", chkbD: true },
@@ -326,7 +326,7 @@ export default {
         { nameField: "Bts_yes", lngName: "bts_yes", chkbD: false },
         { nameField: "Bts_no", lngName: "bts_no", chkbD: false }
       ],
-      listStatusMatch: [],
+      listBuckmekers: [],
       multipleSelection: [],
       rules: {
         value1: [
@@ -359,10 +359,7 @@ export default {
   async created() {
     const { events } = await this.$axios.$get("/api/Odds/getMatch");
     this.selected = events;
-    /*const { statusMatches } = await this.$axios.$get(
-      "/api/Odds/getStatusMatch"
-    );
-    this.listStatusMatch = statusMatches;*/
+    //this.listBuckmekers = await this.$axios.$get("/api/Bucmekers/")
     this.$store.commit("SET_FORMTHEAD", this.formThead);
     this.getList();
   },
@@ -398,6 +395,13 @@ export default {
               title: "Выполнено!",
               type: "success",
               message: "Данные загружены"
+            });
+          } else {
+            this.dialog = false;
+            this.$notify({
+              title: "Ошибка!",
+              type: "error",
+              message: rc
             });
           }
         }
