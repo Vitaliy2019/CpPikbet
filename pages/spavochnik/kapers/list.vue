@@ -282,7 +282,7 @@ export default {
       })
         .then(async () => {
           //this.kapers = Object.assign({}, item);
-          debugger;
+          
           const { rc } = await this.$axios.$delete(`/api/Kapers/${item.Id}`); //, {
           //params: item
           //});

@@ -49,7 +49,7 @@ export default {
     const { userAdminPanel } = await this.$axios.$get(
       "/api/App/getEditeProfile"
     );
-    debugger;
+    
     this.formModel = Object.assign({}, userAdminPanel);
   },
   methods: {

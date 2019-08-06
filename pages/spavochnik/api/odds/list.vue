@@ -9,10 +9,10 @@
           placeholder="Выберите букмекера"
         >
           <el-option
-            v-for="item in selected"
-            :key="item.country_id"
-            :label="item.odd_bookmakers"
-            :value="item.odd_bookmakers"
+            v-for="(item, index) in selectedBukmekers"
+            :key="'selBuk'+index"
+            :label="item"
+            :value="item"
             @keyup.enter.native="handleFilter"
           ></el-option>
         </el-select>
@@ -25,15 +25,15 @@
           placeholder="Выберите событие"
         >
           <el-option
-            v-for="item in selected"
-            :key="item.country_id"
+            v-for="(item, index) in selected"
+            :key="index"
             :label="`${item.match_hometeam_name} - ${item.match_awayteam_name}`"
             :value="item.match_id"
             @keyup.enter.native="handleFilter"
           ></el-option>
         </el-select>
       </el-tooltip>
-      <el-tooltip effect="dark" content="Введите значение для поиска и фильтраци">
+      <el-tooltip v-if="false" effect="dark" content="Введите значение для поиска и фильтраци">
         <el-date-picker
           v-model="listQuery.ValueC"
           @keyup.enter.native="handleFilter"
@@ -85,24 +85,24 @@
       <template v-for="(fruit, index) in LangFormThead">
         <el-table-column
           v-if="fruit.chkbD"
-          :key="index"
+          :key="'data-'+index"
           sortable
           :label="fruit.lngName"
           :property="fruit.nameField"
         >
           <template slot-scope="scope">
             <vueDateFormat
-              v-if="fruit.nameField==='Odd_date'"
+              v-if="fruit.nameField==='odd_date'"
               :format="formatDate.format"
               :time="scope.row[fruit.nameField]"
               :type="formatDate.type"
               :auto-update="formatDate.autoUpdate"
             />
             <span
-              v-else-if="fruit.nameField==='Match_id' || fruit.nameField==='Odd_bookmakers'"
+              v-else-if="fruit.nameField==='match_id' || fruit.nameField==='odd_bookmakers'"
               style="margin-left: 10px"
             >{{ scope.row[fruit.nameField] }}</span>
-            <span v-else style="margin-left: 10px">{{ scope.row[fruit.nameField].toFixed(2) }}</span>
+            <span v-else style="margin-left: 10px">{{ scope.row[fruit.nameField] }}</span>
           </template>
         </el-table-column>
       </template>
@@ -194,6 +194,7 @@ export default {
       dialog: false,
       dialogDate: false,
       search: "",
+      selectedBukmekers: [],
       selected: [],
       totalDesserts: 0,
       desserts: [],
@@ -205,126 +206,126 @@ export default {
         ValueM: null
       },
       formThead: [
-        { nameField: "Match_id", lngName: "Id матча", chkbD: true },
-        { nameField: "Odd_bookmakers", lngName: "Букмекер", chkbD: false },
-        { nameField: "Odd_date", lngName: "Дата", chkbD: true },
-        { nameField: "Odd_1", lngName: "odd 1", chkbD: false },
+        { nameField: "match_id", lngName: "Id матча", chkbD: true },
+        { nameField: "odd_bookmakers", lngName: "Букмекер", chkbD: false },
+        { nameField: "odd_date", lngName: "Дата", chkbD: true },
+        { nameField: "odd_1", lngName: "odd 1", chkbD: false },
         {
-          nameField: "Odd_x",
+          nameField: "odd_x",
           lngName: "odd x",
           chkbD: true
         },
-        { nameField: "Odd_2", lngName: "odd 2", chkbD: true },
-        { nameField: "Odd_1x", lngName: "odd 1x", chkbD: true },
-        { nameField: "Odd_12", lngName: "odd 12", chkbD: true },
+        { nameField: "odd_2", lngName: "odd 2", chkbD: true },
+        { nameField: "odd_1x", lngName: "odd 1x", chkbD: true },
+        { nameField: "odd_12", lngName: "odd 12", chkbD: true },
         {
-          nameField: "Odd_x2",
+          nameField: "odd_x2",
           lngName: "odd x2",
           chkbD: true
         },
         {
-          nameField: "Ah_4_5_1",
-          lngName: "ah-4.5_1",
+          nameField: "ah-4.5.1",
+          lngName: "ah-4.5.1",
           chkbD: false
         },
         {
-          nameField: "Ah_4_5_2",
-          lngName: "ah-4.5_1",
+          nameField: "ah-4.5.2",
+          lngName: "ah-4.5.1",
           chkbD: false
         },
         {
-          nameField: "Ah_4_1",
-          lngName: "ah-4_1",
+          nameField: "ah-4.1",
+          lngName: "ah-4.1",
           chkbD: true
         },
         {
-          nameField: "Ah_4_2",
-          lngName: "ah-4_2",
+          nameField: "ah-4.2",
+          lngName: "ah-4.2",
           chkbD: false
         },
         {
-          nameField: "Ah_3_5_1",
-          lngName: "ah-3.5_1",
+          nameField: "ah-3.5.1",
+          lngName: "ah-3.5.1",
           chkbD: false
         },
         {
-          nameField: "Ah_3_5_2",
-          lngName: "ah-3.5_2",
+          nameField: "ah-3.5.2",
+          lngName: "ah-3.5.2",
           chkbD: false
         },
         {
-          nameField: "Ah_3_1",
-          lngName: "ah-3_1",
+          nameField: "ah-3.1",
+          lngName: "ah-3.1",
           chkbD: false
         },
         {
-          nameField: "Ah_3_2",
-          lngName: "ah-3_2",
+          nameField: "ah-3.2",
+          lngName: "ah-3.2",
           chkbD: false
         },
         {
-          nameField: "Ah_2_5_1",
-          lngName: "ah-2.5_1",
+          nameField: "ah-2.5.1",
+          lngName: "ah-2.5.1",
           chkbD: false
         },
         {
-          nameField: "Ah_2_5_2",
-          lngName: "ah-2.5_2",
+          nameField: "ah-2.5.2",
+          lngName: "ah-2.5.2",
           chkbD: false
         },
         {
-          nameField: "Ah_2_1",
-          lngName: "ah-2_1",
+          nameField: "ah-2.1",
+          lngName: "ah-2.1",
           chkbD: false
         },
         {
-          nameField: "Ah_2_2",
-          lngName: "ah-2_1",
+          nameField: "ah-2.2",
+          lngName: "ah-2.2",
           chkbD: false
         },
         {
-          nameField: "Ah_1_5_1",
-          lngName: "ah-1.5_1",
+          nameField: "ah-1.5.1",
+          lngName: "ah-1.5.1",
           chkbD: false
         },
-        { nameField: "Ah_1_5_2", lngName: "ah-1.5_1", chkbD: false },
-        { nameField: "Ah_1_1", lngName: "ah-1_1", chkbD: false },
-        { nameField: "Ah_1_2", lngName: "ah-1_2", chkbD: false },
+        { nameField: "ah-1.5.2", lngName: "ah-1.5.1", chkbD: false },
+        { nameField: "ah-1.1", lngName: "ah-1.1", chkbD: false },
+        { nameField: "ah-1.2", lngName: "ah-1.2", chkbD: false },
 
-        { nameField: "Ah_p4_5_1", lngName: "ah+4.5_1", chkbD: false },
-        { nameField: "Ah_p4_5_2", lngName: "ah+4.5_2", chkbD: false },
-        { nameField: "Ah_p4_1", lngName: "ah+4_1", chkbD: false },
-        { nameField: "Ah_p4_2", lngName: "ah+4_2", chkbD: false },
-        { nameField: "Ah_p3_1", lngName: "ah+3_1", chkbD: false },
-        { nameField: "Ah_p3_2", lngName: "ah+3_2", chkbD: false },
-        { nameField: "Ah_p2_5_1", lngName: "ah+2.5_1", chkbD: false },
-        { nameField: "Ah_p2_5_2", lngName: "ah+2.5_1", chkbD: false },
-        { nameField: "Ah_p2_1", lngName: "ah+2_1", chkbD: false },
-        { nameField: "Ah_p2_2", lngName: "ah+2_2", chkbD: false },
-        { nameField: "Ah_p1_5_1", lngName: "ah+1.5_1", chkbD: false },
-        { nameField: "Ah_p1_5_2", lngName: "ah+1.5_1", chkbD: false },
-        { nameField: "Ah_p1_1", lngName: "ah+1_1", chkbD: false },
-        { nameField: "Ah_p1_2", lngName: "ah+1_2", chkbD: false },
-        { nameField: "Ah0_1", lngName: "ah0_1", chkbD: false },
-        { nameField: "Ah0_2", lngName: "ah0_2", chkbD: false },
-        { nameField: "O_0_5", lngName: "o+0.5", chkbD: false },
-        { nameField: "O_1", lngName: "o+1", chkbD: false },
-        { nameField: "U_1", lngName: "u+1", chkbD: false },
-        { nameField: "O_1_5", lngName: "o+1.5", chkbD: false },
-        { nameField: "U_1_5", lngName: "u+1.5", chkbD: false },
-        { nameField: "O_2", lngName: "o+2", chkbD: false },
-        { nameField: "U_2", lngName: "u+2", chkbD: false },
-        { nameField: "O_2_5", lngName: "o+2.5", chkbD: false },
-        { nameField: "U_2_5", lngName: "u+2.5", chkbD: false },
-        { nameField: "O_3", lngName: "o+3", chkbD: false },
-        { nameField: "U_3", lngName: "u+3", chkbD: false },
-        { nameField: "O_3_5", lngName: "o+3.5", chkbD: false },
-        { nameField: "U_3_5", lngName: "u+3.5", chkbD: false },
-        { nameField: "O_4_5", lngName: "u+4.5", chkbD: false },
-        { nameField: "O_5_5", lngName: "o+5.5", chkbD: false },
-        { nameField: "U_5_5", lngName: "u+5.5", chkbD: false },
-        { nameField: "Bts_yes", lngName: "bts_yes", chkbD: false },
-        { nameField: "Bts_no", lngName: "bts_no", chkbD: false }
+        { nameField: "ah+4.5.1", lngName: "ah+4.5.1", chkbD: false },
+        { nameField: "ah+4.5.2", lngName: "ah+4.5.2", chkbD: false },
+        { nameField: "ah+4.1", lngName: "ah+4.1", chkbD: false },
+        { nameField: "ah+4.2", lngName: "ah+4.2", chkbD: false },
+        { nameField: "ah+3.1", lngName: "ah+3.1", chkbD: false },
+        { nameField: "ah+3.2", lngName: "ah+3.2", chkbD: false },
+        { nameField: "ah+2.5.1", lngName: "ah+2.5.1", chkbD: false },
+        { nameField: "ah+2.5.2", lngName: "ah+2.5.1", chkbD: false },
+        { nameField: "ah+2.1", lngName: "ah+2.1", chkbD: false },
+        { nameField: "ah+2.2", lngName: "ah+2.2", chkbD: false },
+        { nameField: "ah+1.5.1", lngName: "ah+1.5.1", chkbD: false },
+        { nameField: "ah+1.5.2", lngName: "ah+1.5.1", chkbD: false },
+        { nameField: "ah+1.1", lngName: "ah+1.1", chkbD: false },
+        { nameField: "ah+1.2", lngName: "ah+1.2", chkbD: false },
+        { nameField: "ah0_1", lngName: "ah0_1", chkbD: false },
+        { nameField: "ah0_2", lngName: "ah0_2", chkbD: false },
+        { nameField: "o+0.5", lngName: "o+0.5", chkbD: false },
+        { nameField: "o+1", lngName: "o+1", chkbD: false },
+        { nameField: "u+1", lngName: "u+1", chkbD: false },
+        { nameField: "o+1.5", lngName: "o+1.5", chkbD: false },
+        { nameField: "u+1.5", lngName: "u+1.5", chkbD: false },
+        { nameField: "o+2", lngName: "o+2", chkbD: false },
+        { nameField: "u+2", lngName: "u+2", chkbD: false },
+        { nameField: "o+2.5", lngName: "o+2.5", chkbD: false },
+        { nameField: "u+2.5", lngName: "u+2.5", chkbD: false },
+        { nameField: "o+3", lngName: "o+3", chkbD: false },
+        { nameField: "u+3", lngName: "u+3", chkbD: false },
+        { nameField: "o+3.5", lngName: "o+3.5", chkbD: false },
+        { nameField: "u+3.5", lngName: "u+3.5", chkbD: false },
+        { nameField: "o+4.5", lngName: "u+4.5", chkbD: false },
+        { nameField: "o+5.5", lngName: "o+5.5", chkbD: false },
+        { nameField: "u+5.5", lngName: "u+5.5", chkbD: false },
+        { nameField: "bts_yes", lngName: "bts_yes", chkbD: false },
+        { nameField: "bts_no", lngName: "bts_no", chkbD: false }
       ],
       listBuckmekers: [],
       multipleSelection: [],
@@ -357,7 +358,10 @@ export default {
     }
   },
   async created() {
-    const { events } = await this.$axios.$get("/api/Odds/getMatch");
+    debugger;
+    const { bookmakers } = await this.$axios.$get("/api/odds/getBookmakers");
+    this.selectedBukmekers = bookmakers;
+    const { events } = await this.$axios.$get("/api/odds/getMatch");
     this.selected = events;
     //this.listBuckmekers = await this.$axios.$get("/api/Bucmekers/")
     this.$store.commit("SET_FORMTHEAD", this.formThead);
@@ -384,7 +388,7 @@ export default {
         if (valid) {
           this.dialogDate = false;
           this.dialog = true;
-          const { rc } = await this.$axios.$get("/api/Api/loadDataApiOdds", {
+          const { rc } = await this.$axios.$get("/api/Api/loadDataApiodds", {
             params: this.rulesForm.value1
           });
           if (rc === "ok") {
@@ -424,9 +428,8 @@ export default {
         }
       ).then(async () => {
         if (this.multipleSelection.length > 0) {
-          debugger;
           const { rc } = await this.$axios.$post(
-            "/api/Odds/deleteAll",
+            "/api/odds/deleteAll",
             this.multipleSelection
           );
           if (rc === "ok") {
@@ -464,12 +467,15 @@ export default {
       this.getList();
     },
     async getList() {
-      debugger;
       this.prGetList = true;
-      const { odds, total } = await this.$axios.$get("/api/Odds", {
+      const { odds, total } = await this.$axios.$get("/api/odds", {
         params: this.listQuery
       });
-      this.desserts = odds;
+
+      const deserodds = odds.map(v => JSON.parse(v.Data));
+      console.log("deserodds", deserodds);
+
+      this.desserts = deserodds;
       this.totalDesserts = total;
       this.prGetList = false;
     },
@@ -486,8 +492,7 @@ export default {
         center: true
       })
         .then(async () => {
-          debugger;
-          const { rc } = await this.$axios.$delete("/api/Odds", {
+          const { rc } = await this.$axios.$delete("/api/odds", {
             params: item
           }); //, {
           if (rc === "ok") {

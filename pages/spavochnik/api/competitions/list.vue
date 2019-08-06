@@ -231,7 +231,7 @@ export default {
         }
       ).then(async () => {
         if (this.multipleSelection.length > 0) {
-          debugger;
+          
           const { rc } = await this.$axios.$post(
             "/api/Competitions/deleteAll",
             this.multipleSelection
@@ -298,7 +298,7 @@ export default {
         center: true
       })
         .then(async () => {
-          debugger;
+          
           const { rc } = await this.$axios.$delete("/api/Competitions", {
             params: item
           }); //, {

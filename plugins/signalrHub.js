@@ -30,7 +30,7 @@ export default () => {
   })
 
   hub.on('ReceiveMessage', res => {
-    debugger
+
     console.log('Received message from signalr', JSON.stringify(res))
   })
 
@@ -42,7 +42,7 @@ export default () => {
   async function start() {
     try {
       console.log('Попытка переподключения')
-      debugger
+
       await hub.start()
     } catch (err) {
       console.log(err)
