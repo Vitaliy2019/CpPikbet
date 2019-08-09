@@ -15,9 +15,9 @@
                 </v-toolbar>
                 <v-card>
                   <v-card-text>
-                    <v-text-field readonly v-model="odds.Match_id" label="Id матча"></v-text-field>
-                    <v-text-field readonly v-model="odds.Odd_bookmakers" label="Букмекер"></v-text-field>
-                    <v-text-field readonly v-model="odds.Odd_date" label="Дата"></v-text-field>
+                    <v-text-field readonly v-model="odds.matchName" label="Id матча"></v-text-field>
+                    <v-text-field readonly v-model="odds.odd_bookmakers" label="Букмекер"></v-text-field>
+                    <v-text-field readonly v-model="odds.odd_date" label="Дата"></v-text-field>
                   </v-card-text>
                 </v-card>
               </v-flex>
@@ -27,9 +27,9 @@
                 </v-toolbar>
                 <v-card>
                   <v-card-text>
-                    <v-text-field mask="#.##" readonly v-model="odds.Odd_1" label="Победа 1 ком."></v-text-field>
-                    <v-text-field mask="#.##" readonly v-model="odds.Odd_x" label="Ничья"></v-text-field>
-                    <v-text-field mask="#.##" readonly v-model="odds.Odd_2" label="Победа 2 ком."></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.odd_1" label="Победа 1 ком."></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.odd_x" label="Ничья"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.odd_2" label="Победа 2 ком."></v-text-field>
                   </v-card-text>
                 </v-card>
               </v-flex>
@@ -40,9 +40,9 @@
                 </v-toolbar>
                 <v-card>
                   <v-card-text>
-                    <v-text-field mask="#.##" readonly v-model="odds.Odd_1x" label="Odd_1x"></v-text-field>
-                    <v-text-field mask="#.##" readonly v-model="odds.Odd_12" label="Odd_12"></v-text-field>
-                    <v-text-field mask="#.##" readonly v-model="odds.Odd_x2" label="Odd_x2"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.odd_1x" label="odd_1x"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.odd_12" label="odd_12"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.odd_x2" label="odd_x2"></v-text-field>
                   </v-card-text>
                 </v-card>
               </v-flex>
@@ -53,8 +53,8 @@
                 </v-toolbar>
                 <v-card>
                   <v-card-text>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_4_5_1" label="ah-4.5_1"></v-text-field>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_4_5_2" label="ah-4.5_2"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_4_5_1" label="Ah-4.5_1"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_4_5_2" label="Ah-4.5_2"></v-text-field>
                   </v-card-text>
                 </v-card>
               </v-flex>
@@ -65,8 +65,8 @@
                 </v-toolbar>
                 <v-card>
                   <v-card-text>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_4_1" label="ah-4_1"></v-text-field>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_4_2" label="ah-4_2"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_4_1" label="Ah-4_1"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_4_2" label="Ah-4_2"></v-text-field>
                   </v-card-text>
                 </v-card>
               </v-flex>
@@ -77,8 +77,8 @@
                 </v-toolbar>
                 <v-card>
                   <v-card-text>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_3_5_1" label="ah-3.5_1"></v-text-field>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_3_5_2" label="ah-3.5_2"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_3_5_1" label="Ah-3.5_1"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_3_5_2" label="Ah-3.5_2"></v-text-field>
                   </v-card-text>
                 </v-card>
               </v-flex>
@@ -89,8 +89,8 @@
                 </v-toolbar>
                 <v-card>
                   <v-card-text>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_3_1" label="ah-3.5_1"></v-text-field>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_3_5_2" label="ah-3.5_2"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_3_1" label="Ah-3.5_1"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_3_5_2" label="Ah-3.5_2"></v-text-field>
                   </v-card-text>
                 </v-card>
               </v-flex>
@@ -101,8 +101,8 @@
                 </v-toolbar>
                 <v-card>
                   <v-card-text>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_3_1" label="ah-3_1"></v-text-field>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_3_2" label="ah-3_2"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_3_1" label="Ah-3_1"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_3_2" label="Ah-3_2"></v-text-field>
                   </v-card-text>
                 </v-card>
               </v-flex>
@@ -113,8 +113,8 @@
                 </v-toolbar>
                 <v-card>
                   <v-card-text>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_2_5_1" label="ah-2.5_1"></v-text-field>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_2_5_2" label="ah-2.5_2"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_2_5_1" label="Ah-2.5_1"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_2_5_2" label="Ah-2.5_2"></v-text-field>
                   </v-card-text>
                 </v-card>
               </v-flex>
@@ -125,8 +125,8 @@
                 </v-toolbar>
                 <v-card>
                   <v-card-text>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_2_1" label="ah-2_1"></v-text-field>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_2_2" label="ah-2_2"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_2_1" label="Ah-2_1"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_2_2" label="Ah-2_2"></v-text-field>
                   </v-card-text>
                 </v-card>
               </v-flex>
@@ -137,8 +137,8 @@
                 </v-toolbar>
                 <v-card>
                   <v-card-text>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_1_5_1" label="ah-1.5_1"></v-text-field>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_1_5_2" label="ah-1.5_2"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_1_5_1" label="Ah-1.5_1"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_1_5_2" label="Ah-1.5_2"></v-text-field>
                   </v-card-text>
                 </v-card>
               </v-flex>
@@ -149,8 +149,8 @@
                 </v-toolbar>
                 <v-card>
                   <v-card-text>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_1_1" label="ah-1_1"></v-text-field>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_1_2" label="ah-1_2"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_1_1" label="Ah-1_1"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_1_2" label="Ah-1_2"></v-text-field>
                   </v-card-text>
                 </v-card>
               </v-flex>
@@ -161,8 +161,8 @@
                 </v-toolbar>
                 <v-card>
                   <v-card-text>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p4_5_1" label="ah+4.5_1"></v-text-field>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p4_5_2" label="ah+4.5_2"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p4_5_1" label="Ah+4.5_1"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p4_5_2" label="Ah+4.5_2"></v-text-field>
                   </v-card-text>
                 </v-card>
               </v-flex>
@@ -173,8 +173,8 @@
                 </v-toolbar>
                 <v-card>
                   <v-card-text>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p4_1" label="ah+4_1"></v-text-field>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p4_2" label="ah+4_2"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p4_1" label="Ah+4_1"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p4_2" label="Ah+4_2"></v-text-field>
                   </v-card-text>
                 </v-card>
               </v-flex>
@@ -185,8 +185,8 @@
                 </v-toolbar>
                 <v-card>
                   <v-card-text>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p3_5_1" label="ah+3.5_1"></v-text-field>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p3_5_2" label="ah+3.5_2"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p3_5_1" label="Ah+3.5_1"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p3_5_2" label="Ah+3.5_2"></v-text-field>
                   </v-card-text>
                 </v-card>
               </v-flex>
@@ -197,8 +197,8 @@
                 </v-toolbar>
                 <v-card>
                   <v-card-text>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p3_1" label="ah+3_1"></v-text-field>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p3_1" label="ah+3_1"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p3_1" label="Ah+3_1"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p3_1" label="Ah+3_1"></v-text-field>
                   </v-card-text>
                 </v-card>
               </v-flex>
@@ -209,8 +209,8 @@
                 </v-toolbar>
                 <v-card>
                   <v-card-text>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p2_5_1" label="ah+2.5_1"></v-text-field>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p2_5_2" label="ah+2.5_2"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p2_5_1" label="Ah+2.5_1"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p2_5_2" label="Ah+2.5_2"></v-text-field>
                   </v-card-text>
                 </v-card>
               </v-flex>
@@ -221,8 +221,8 @@
                 </v-toolbar>
                 <v-card>
                   <v-card-text>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p2_1" label="ah+2_1"></v-text-field>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p2_2" label="ah+2_2"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p2_1" label="Ah+2_1"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p2_2" label="Ah+2_2"></v-text-field>
                   </v-card-text>
                 </v-card>
               </v-flex>
@@ -233,8 +233,8 @@
                 </v-toolbar>
                 <v-card>
                   <v-card-text>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p1_5_1" label="ah+1.5_1"></v-text-field>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p1_5_2" label="ah+1.5_2"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p1_5_1" label="Ah+1.5_1"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p1_5_2" label="Ah+1.5_2"></v-text-field>
                   </v-card-text>
                 </v-card>
               </v-flex>
@@ -245,8 +245,8 @@
                 </v-toolbar>
                 <v-card>
                   <v-card-text>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p1_1" label="ah+1_1"></v-text-field>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p1_2" label="ah+1_2"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p1_1" label="Ah+1_1"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p1_2" label="Ah+1_2"></v-text-field>
                   </v-card-text>
                 </v-card>
               </v-flex>
@@ -257,8 +257,8 @@
                 </v-toolbar>
                 <v-card>
                   <v-card-text>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah0_1" label="ah0_1"></v-text-field>
-                    <v-text-field mask="#.##" readonly v-model="odds.Ah0_1" label="ah0_2"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah0_1" label="Ah0_1"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah0_1" label="Ah0_2"></v-text-field>
                   </v-card-text>
                 </v-card>
               </v-flex>
@@ -419,44 +419,42 @@ export default {
       },
       async set(newValue) {
         await this.$store.dispatch("odds/setOdds", newValue);
+      },
+      prOperation() {
+        return this.$store.getters["odds/getPrOperation"];
       }
     },
-    prOperation() {
-      return this.$store.getters["odds/getPrOperation"];
-    }
-  },
-  methods: {
-    close() {
-      this.imagecropperShow = false;
-    },
-    closeForm() {
-      this.dialogForm = false;
-    },
-    save() {
-      if (this.$refs.form.validate()) {
-        this.insertItem();
-      }
-    },
-    async insertItem() {
-      await this.$store.dispatch("odds/setOdds", this.odds);
-      if (this.prOperation === "ok") {
-        this.$store.dispatch("odds/setPrGetList", true);
+    methods: {
+      close() {
+        this.imagecropperShow = false;
+      },
+      closeForm() {
         this.dialogForm = false;
-        this.$notify({
-          title: "Выполнено",
-          type: "success",
-          message: "Коэффициент изменен"
-        });
-      } else {
-        this.$notify({
-          title: "Ошибка!",
-          type: "error",
-          message: rc
-        });
+      },
+      save() {
+        if (this.$refs.form.validate()) {
+          this.insertItem();
+        }
+      },
+      async insertItem() {
+        await this.$store.dispatch("odds/setOdds", this.odds);
+        if (this.prOperation === "ok") {
+          this.$store.dispatch("odds/setPrGetList", true);
+          this.dialogForm = false;
+          this.$notify({
+            title: "Выполнено",
+            type: "success",
+            message: "Коэффициент изменен"
+          });
+        } else {
+          this.$notify({
+            title: "Ошибка!",
+            type: "error",
+            message: rc
+          });
+        }
       }
     }
   }
 };
 </script>
-
- 
