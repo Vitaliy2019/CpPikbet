@@ -16,8 +16,8 @@
                 <v-card>
                   <v-card-text>
                     <v-text-field readonly v-model="odds.matchName" label="Id матча"></v-text-field>
-                    <v-text-field readonly v-model="odds.odd_bookmakers" label="Букмекер"></v-text-field>
-                    <v-text-field readonly v-model="odds.odd_date" label="Дата"></v-text-field>
+                    <v-text-field readonly v-model="odds.Odd_bookmakers" label="Букмекер"></v-text-field>
+                    <v-text-field readonly v-model="odds.Odd_date" label="Дата"></v-text-field>
                   </v-card-text>
                 </v-card>
               </v-flex>
@@ -27,9 +27,9 @@
                 </v-toolbar>
                 <v-card>
                   <v-card-text>
-                    <v-text-field mask="#.##" readonly v-model="odds.odd_1" label="Победа 1 ком."></v-text-field>
-                    <v-text-field mask="#.##" readonly v-model="odds.odd_x" label="Ничья"></v-text-field>
-                    <v-text-field mask="#.##" readonly v-model="odds.odd_2" label="Победа 2 ком."></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Odd_1" label="Победа 1 ком."></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Odd_x" label="Ничья"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Odd_2" label="Победа 2 ком."></v-text-field>
                   </v-card-text>
                 </v-card>
               </v-flex>
@@ -40,9 +40,9 @@
                 </v-toolbar>
                 <v-card>
                   <v-card-text>
-                    <v-text-field mask="#.##" readonly v-model="odds.odd_1x" label="odd_1x"></v-text-field>
-                    <v-text-field mask="#.##" readonly v-model="odds.odd_12" label="odd_12"></v-text-field>
-                    <v-text-field mask="#.##" readonly v-model="odds.odd_x2" label="odd_x2"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Odd_1x" label="odd_1x"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Odd_12" label="odd_12"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Odd_x2" label="odd_x2"></v-text-field>
                   </v-card-text>
                 </v-card>
               </v-flex>
@@ -389,8 +389,8 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" flat @click="closeForm">Закрыть</v-btn>
-        <v-btn color="blue darken-1" flat @click="save">Сохранить</v-btn>
+        <v-btn color="blue darken-1" flat v_on:click="closeFormD">Закрыть</v-btn>
+        <v-btn color="blue darken-1" flat v-on:click="save">Сохранить</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -423,36 +423,37 @@ export default {
       prOperation() {
         return this.$store.getters["odds/getPrOperation"];
       }
+    }
+  },
+  methods: {
+    close() {
+      this.imagecropperShow = false;
     },
-    methods: {
-      close() {
-        this.imagecropperShow = false;
-      },
-      closeForm() {
+    closeFormD() {
+      debugger;
+      this.dialogForm = false;
+    },
+    save() {
+      if (this.$refs.form.validate()) {
+        this.insertItem();
+      }
+    },
+    async insertItem() {
+      await this.$store.dispatch("odds/setOdds", this.odds);
+      if (this.prOperation === "ok") {
+        this.$store.dispatch("odds/setPrGetList", true);
         this.dialogForm = false;
-      },
-      save() {
-        if (this.$refs.form.validate()) {
-          this.insertItem();
-        }
-      },
-      async insertItem() {
-        await this.$store.dispatch("odds/setOdds", this.odds);
-        if (this.prOperation === "ok") {
-          this.$store.dispatch("odds/setPrGetList", true);
-          this.dialogForm = false;
-          this.$notify({
-            title: "Выполнено",
-            type: "success",
-            message: "Коэффициент изменен"
-          });
-        } else {
-          this.$notify({
-            title: "Ошибка!",
-            type: "error",
-            message: rc
-          });
-        }
+        this.$notify({
+          title: "Выполнено",
+          type: "success",
+          message: "Коэффициент изменен"
+        });
+      } else {
+        this.$notify({
+          title: "Ошибка!",
+          type: "error",
+          message: rc
+        });
       }
     }
   }

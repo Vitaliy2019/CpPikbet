@@ -155,7 +155,7 @@ export const actions = {
   }, data) {
     commit('SET_PR_GETLIST', data)
   },
-  async setEvents({
+  async setOdds({
     commit
   }, data) {
 
