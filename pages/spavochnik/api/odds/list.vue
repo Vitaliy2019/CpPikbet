@@ -236,8 +236,8 @@ export default {
           chkbD: false
         },
         {
-          nameField: "Ah-4_1",
-          lngName: "Ah_4_1",
+          nameField: "Ah_4_1",
+          lngName: "Ah-4_1",
           chkbD: true
         },
         {
