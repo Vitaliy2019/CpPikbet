@@ -389,8 +389,8 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" flat v_on:click="closeFormD">Закрыть</v-btn>
-        <v-btn color="blue darken-1" flat v-on:click="save">Сохранить</v-btn>
+        <v-btn color="blue darken-1" flat v-on:click="dialogForm=false">Закрыть</v-btn>
+        <v-btn color="blue darken-1" flat v-on:click="save()">Сохранить</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -429,7 +429,7 @@ export default {
     close() {
       this.imagecropperShow = false;
     },
-    closeFormD() {
+    closeForm() {
       debugger;
       this.dialogForm = false;
     },
@@ -439,7 +439,9 @@ export default {
       }
     },
     async insertItem() {
+      debugger
       await this.$store.dispatch("odds/setOdds", this.odds);
+
       if (this.prOperation === "ok") {
         this.$store.dispatch("odds/setPrGetList", true);
         this.dialogForm = false;

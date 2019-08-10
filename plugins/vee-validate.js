@@ -1,4 +1,7 @@
 import Vue from 'vue'
 import VeeValidate from 'vee-validate'
 
-Vue.use(VeeValidate)
+const config = {
+  fieldsBagName: "fieldss",
+}
+Vue.use(VeeValidate, config)

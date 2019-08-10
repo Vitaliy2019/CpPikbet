@@ -1,5 +1,7 @@
 export const state = () => ({
   odds: {
+    id: 0,
+    matchName: '',
     Match_id: 0,
     Odd_bookmakers: '',
     Odd_date: null,
@@ -74,6 +76,8 @@ export const mutations = {
     state.prGetList = sts
   },
   RESET(state) {
+    state.odds.id = 0
+    state.odds.matchName = ''
     state.odds.Match_id = 0
     state.odds.Odd_bookmakers = ''
     state.odds.Odd_date = null
