@@ -110,12 +110,12 @@
 
       <el-table-column label="Действие">
         <template slot-scope="scope">
-          <el-tooltip effect="dark" content="Редактировать соревнования">
+          <el-tooltip effect="dark" content="Просмотреть коэффициент">
             <v-btn outline icon dark medium color="primary" @click="editItem(scope.row)">
-              <v-icon small>edit</v-icon>
+              <v-icon small>search</v-icon>
             </v-btn>
           </el-tooltip>
-          <el-tooltip effect="dark" content="Удалить соревнования">
+          <el-tooltip effect="dark" content="Удалить коэффициент">
             <v-btn outline icon dark medium color="pink" @click="deleteItem(scope.row)">
               <v-icon small>delete</v-icon>
             </v-btn>

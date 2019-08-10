@@ -390,7 +390,7 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="blue darken-1" flat v-on:click="dialogForm=false">Закрыть</v-btn>
-        <v-btn color="blue darken-1" flat v-on:click="save()">Сохранить</v-btn>
+        <v-btn v-if="false" color="blue darken-1" flat v-on:click="save()">Сохранить</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -439,7 +439,7 @@ export default {
       }
     },
     async insertItem() {
-      debugger
+      debugger;
       await this.$store.dispatch("odds/setOdds", this.odds);
 
       if (this.prOperation === "ok") {
