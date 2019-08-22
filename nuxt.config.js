@@ -1,5 +1,6 @@
 const pkg = require('./package')
-const apiUrl = process.env.API_URL || 'https://localhost:5001'
+// const apiUrl = process.env.API_URL || 'https://localhost:5001'
+const apiUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:5000' : 'https://api.pikbet.ru'
 console.log("apiUrl", apiUrl)
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
