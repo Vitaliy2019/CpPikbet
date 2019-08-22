@@ -7,7 +7,8 @@ import {
   getToken
 } from '~/assets/js/auth'*/
 //const apiUrl = process.env.API_URL || 'https://localhost:5001'
-const apiUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:5000' : 'https://api.pikbet.ru'
+// const apiUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:5000' : 'https://api.pikbet.ru'
+const apiUrl = 'https://api.pikbet.ru'
 console.log("process.env", process.env.NODE_ENV)
 
 export default () => {
