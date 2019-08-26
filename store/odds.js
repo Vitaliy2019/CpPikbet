@@ -27,9 +27,11 @@ export const state = () => ({
     Ah_1_5_2: 0,
     Ah_1_1: 0,
     Ah_1_2: 0,
+    Ah_0_5_1: 0,
+    Ah_0_5_2: 0,
     Ah_p4_5_1: 0,
     Ah_p4_5_2: 0,
-    Ah_p4_1: '',
+    Ah_p4_1: 0,
     Ah_p4_2: 0,
     Ah_p3_5_1: 0,
     Ah_p3_5_2: 0,
@@ -45,7 +47,7 @@ export const state = () => ({
     Ah_p1_2: 0,
     Ah0_1: 0,
     Ah0_2: 0,
-    O_0_5: '',
+    O_0_5: 0,
     U_0_5: 0,
     O_1: 0,
     U_1: 0,
@@ -59,6 +61,8 @@ export const state = () => ({
     U_3: 0,
     O_3_5: 0,
     U_3_5: 0,
+    O_4: 0,
+    U_4: 0,
     O_4_5: 0,
     U_4_5: 0,
     O_5_5: 0,
@@ -89,7 +93,7 @@ export const mutations = {
     state.odds.Odd_x2 = 0
     state.odds.Ah_4_5_1 = 0
     state.odds.Ah_4_5_2 = 0
-    state.odds.Ah_4_1 = ''
+    state.odds.Ah_4_1 = 0
     state.odds.Ah_4_2 = 0
     state.odds.Ah_3_5_1 = 0
     state.odds.Ah_3_5_2 = 0
@@ -105,7 +109,7 @@ export const mutations = {
     state.odds.Ah_1_2 = 0
     state.odds.Ah_p4_5_1 = 0
     state.odds.Ah_p4_5_2 = 0
-    state.odds.Ah_p4_1 = ''
+    state.odds.Ah_p4_1 = 0
     state.odds.Ah_p4_2 = 0
     state.odds.Ah_p3_5_1 = 0
     state.odds.Ah_p3_5_2 = 0
@@ -121,8 +125,8 @@ export const mutations = {
     state.odds.Ah_p1_2 = 0
     state.odds.Ah0_1 = 0
     state.odds.Ah0_2 = 0
-    state.odds.O_0_5 = ''
-    state.odds.state.odds.U_0_5 = 0
+    state.odds.O_0_5 = 0
+    state.odds.U_0_5 = 0
     state.odds.O_1 = 0
     state.odds.U_1 = 0
     state.odds.O_1_5 = 0

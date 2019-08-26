@@ -161,6 +161,18 @@
                 </v-toolbar>
                 <v-card>
                   <v-card-text>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_0_5_1" label="Ah-0.5_1"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_0_5_2" label="Ah-0.5_2"></v-text-field>
+                  </v-card-text>
+                </v-card>
+              </v-flex>
+
+              <v-flex>
+                <v-toolbar dark color="primary">
+                  <v-toolbar-title class="white--text">Asian Hadndikap</v-toolbar-title>
+                </v-toolbar>
+                <v-card>
+                  <v-card-text>
                     <v-text-field mask="#.##" readonly v-model="odds.Ah_p4_5_1" label="Ah+4.5_1"></v-text-field>
                     <v-text-field mask="#.##" readonly v-model="odds.Ah_p4_5_2" label="Ah+4.5_2"></v-text-field>
                   </v-card-text>
@@ -353,8 +365,32 @@
                 </v-toolbar>
                 <v-card>
                   <v-card-text>
+                    <v-text-field mask="#.##" readonly v-model="odds.O_4" label="o+4"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.U_4" label="u+4"></v-text-field>
+                  </v-card-text>
+                </v-card>
+              </v-flex>
+
+              <v-flex>
+                <v-toolbar dark color="primary">
+                  <v-toolbar-title class="white--text">Over/under</v-toolbar-title>
+                </v-toolbar>
+                <v-card>
+                  <v-card-text>
                     <v-text-field mask="#.##" readonly v-model="odds.O_4_5" label="o+4.5"></v-text-field>
                     <v-text-field mask="#.##" readonly v-model="odds.U_4_5" label="u+4.5"></v-text-field>
+                  </v-card-text>
+                </v-card>
+              </v-flex>
+
+              <v-flex>
+                <v-toolbar dark color="primary">
+                  <v-toolbar-title class="white--text">Over/under</v-toolbar-title>
+                </v-toolbar>
+                <v-card>
+                  <v-card-text>
+                    <v-text-field mask="#.##" readonly v-model="odds.O_5" label="o+5"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.U_5" label="u+5"></v-text-field>
                   </v-card-text>
                 </v-card>
               </v-flex>
