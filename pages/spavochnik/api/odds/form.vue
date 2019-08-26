@@ -269,6 +269,18 @@
                 </v-toolbar>
                 <v-card>
                   <v-card-text>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p0_5_1" label="Ah+0.5_1"></v-text-field>
+                    <v-text-field mask="#.##" readonly v-model="odds.Ah_p0_5_2" label="Ah+0.5_2"></v-text-field>
+                  </v-card-text>
+                </v-card>
+              </v-flex>
+
+              <v-flex>
+                <v-toolbar dark color="primary">
+                  <v-toolbar-title class="white--text">Asian Hadndikap</v-toolbar-title>
+                </v-toolbar>
+                <v-card>
+                  <v-card-text>
                     <v-text-field mask="#.##" readonly v-model="odds.Ah0_1" label="Ah0_1"></v-text-field>
                     <v-text-field mask="#.##" readonly v-model="odds.Ah0_1" label="Ah0_2"></v-text-field>
                   </v-card-text>

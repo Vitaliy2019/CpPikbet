@@ -302,7 +302,7 @@ export default {
         { nameField: "Ah_p4_2", lngName: "Ah+4_2", chkbD: false },
         { nameField: "Ah_p3_5_1", lngName: "Ah+3.5_1", chkbD: false },
         { nameField: "Ah_p3_5_2", lngName: "Ah+3.5_2", chkbD: false },
-        
+
         { nameField: "Ah_p3_1", lngName: "Ah+3_1", chkbD: false },
         { nameField: "Ah_p3_2", lngName: "Ah+3_2", chkbD: false },
 
@@ -314,6 +314,8 @@ export default {
         { nameField: "Ah_p1_5_2", lngName: "Ah+1.5_2", chkbD: false },
         { nameField: "Ah_p1_1", lngName: "Ah+1_1", chkbD: false },
         { nameField: "Ah_p1_2", lngName: "Ah+1_2", chkbD: false },
+        { nameField: "Ah_p0_5_1", lngName: "Ah+0.5_1", chkbD: false },
+        { nameField: "Ah_p0_5_2", lngName: "Ah+0.5_2", chkbD: false },
         { nameField: "Ah0_1", lngName: "Ah0_1", chkbD: false },
         { nameField: "Ah0_2", lngName: "Ah0_2", chkbD: false },
         { nameField: "O_0_5", lngName: "O+0.5", chkbD: false },
