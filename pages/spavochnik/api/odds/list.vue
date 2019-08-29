@@ -318,6 +318,7 @@ export default {
         { nameField: "Ah_p0_5_2", lngName: "Ah+0.5_2", chkbD: false },
         { nameField: "Ah0_1", lngName: "Ah0_1", chkbD: false },
         { nameField: "Ah0_2", lngName: "Ah0_2", chkbD: false },
+        { nameField: "U_0_5", lngName: "U+0.5", chkbD: false },
         { nameField: "O_0_5", lngName: "O+0.5", chkbD: false },
         { nameField: "O_1", lngName: "O+1", chkbD: false },
         { nameField: "U_1", lngName: "U+1", chkbD: false },
