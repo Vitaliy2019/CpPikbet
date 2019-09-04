@@ -6,7 +6,7 @@ const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
 module.exports = {
   mode: 'spa',
-  //serverMiddleware: ['../api/auth'],
+  // serverMiddleware: ['../api/auth'],
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/auth',
@@ -14,8 +14,8 @@ module.exports = {
     '@nuxtjs/sitemap'
   ],
   axios: {
-    //baseURL: 'https://localhost:5001'
-    baseURL: 'https://api.pikbet.ru'
+    baseURL: 'https://localhost:5001'
+    // baseURL: 'https://api.pikbet.ru'
     //baseURL: apiUrl
   },
   auth: {
@@ -28,7 +28,7 @@ module.exports = {
             propertyName: 'token'
           },
           user: {
-            url: '/api/Client/getuser',
+            url: '/api/Account/getuseradmin',
             method: 'get',
             propertyName: 'user'
           },

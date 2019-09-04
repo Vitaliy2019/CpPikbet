@@ -12,8 +12,10 @@
                     alt="панель управления сайтом Pikbet"
                     width="120"
                     height="120"
-                  >
-                  <h1 class="flex my-4 primary--text display-1 text-xs-center">Вход в панель управления Pikbet</h1>
+                  />
+                  <h1
+                    class="flex my-4 primary--text display-1 text-xs-center"
+                  >Вход в панель управления Pikbet</h1>
                 </div>
                 <v-form>
                   <v-text-field
@@ -122,14 +124,13 @@ export default {
       //this.loading = true;
       this.$v.$touch();
       if (!this.$v.$invalid) {
-        ;
         this.$refs.invisibleRecaptcha.execute();
       }
     },
     onVerify: async function(response) {
       try {
         this.loading = true;
-        ;
+        debugger; 
         await this.$auth.loginWith("local", {
           data: {
             email: this.email,
@@ -138,8 +139,6 @@ export default {
         });
         this.$router.push("/");
       } catch (e) {
-        // this.error = e.response.data
-        ;
         this.$notify({
           type: "error",
           title: "Внимание",
