@@ -23,13 +23,6 @@ const Menu = [{
     href: '/setup'
   },
   {
-    title: 'Настройка API',
-    group: 'apps',
-    icon: 'tune',
-    name: 'SetupApi',
-    href: '/setupApi'
-  },
-  {
     title: 'Справочники',
     group: 'spravochnik',
     component: 'refer',
@@ -43,6 +36,11 @@ const Menu = [{
         name: 'bucmekers',
         title: 'Букмекерские конторы',
         href: '/spavochnik/bucmekers'
+      },
+      {
+        name: 'avatars',
+        title: 'Аватары капперов',
+        href: '/spavochnik/avatars/list'
       }
     ]
   },

@@ -10,21 +10,34 @@
           <v-container>
             <v-layout wrap>
               <v-flex>
-                <pan-thumb :image="kaper.Avatar"/>
-                <br>
-                <v-btn color="primary" @click="imagecropperShow=true">
-                  <v-icon>cloud_upload</v-icon>Обновить
-                </v-btn>
-                <image-cropper
-                  v-show="imagecropperShow"
-                  :width="300"
-                  :height="300"
-                  :key="imagecropperKey"
-                  url="https://httpbin.org/post"
-                  lang-type="en"
-                  @close="close"
-                  @crop-upload-success="cropSuccess"
-                />
+                <pan-thumb :image="kaper.Avatar" />
+
+                <br />
+                <v-speed-dial
+                  v-model="fab"
+                  :top="top"
+                  :bottom="bottom"
+                  :right="right"
+                  :left="left"
+                  :direction="direction"
+                  :open-on-hover="hover"
+                  :transition="transition"
+                >
+                  <template v-slot:activator>
+                    <v-tooltip bottom>
+                      <template v-slot:activator="{on}">
+                        <v-btn v-on="on" v-model="fab" color="blue darken-2" dark fab>
+                          <v-icon>present_to_all</v-icon>
+                          <v-icon>close</v-icon>
+                        </v-btn>
+                      </template>
+                      <span>Выберите аватар</span>
+                    </v-tooltip>
+                  </template>
+                  <template v-for="(item, index) in selectAvatars">
+                    <pan-thumb :image="item.Avatar" :key="index" @click="clickAvatar(item.Avatar)" />
+                  </template>
+                </v-speed-dial>
               </v-flex>
               <v-flex>
                 <v-text-field required :rules="loginRules" v-model="kaper.Login" label="Логин"></v-text-field>
@@ -55,52 +68,52 @@
               </v-flex>
               <v-flex>
                 <label>Счет</label>
-                <br>
+                <br />
                 <el-input-number size="mini" v-model="kaper.Score" :min="1"></el-input-number>
               </v-flex>
               <v-flex>
                 <label>Рейтинг</label>
-                <br>
+                <br />
                 <v-rating v-model="kaper.Rating" color="yellow accent-4" hover size="18"></v-rating>
               </v-flex>
               <v-flex>
                 <label>Остаток</label>
-                <br>
+                <br />
                 <el-input-number size="mini" v-model="kaper.Count_stavok" :min="1"></el-input-number>
               </v-flex>
               <v-flex>
                 <label>Доход</label>
-                <br>
+                <br />
                 <el-input-number size="mini" v-model="kaper.Dodhod" :min="1"></el-input-number>
               </v-flex>
               <v-flex>
                 <label>Проход</label>
-                <br>
+                <br />
                 <el-input-number size="mini" v-model="kaper.Prohod" :min="1"></el-input-number>
               </v-flex>
               <v-flex>
                 <label>Ср. коэфф</label>
-                <br>
+                <br />
                 <el-input-number size="mini" v-model="kaper.Sr_koeff" :min="1"></el-input-number>
               </v-flex>
               <v-flex>
                 <label>ROI</label>
-                <br>
+                <br />
                 <el-input-number size="mini" v-model="kaper.Roi" :min="1"></el-input-number>
               </v-flex>
               <v-flex>
                 <label>Выигрыш</label>
-                <br>
+                <br />
                 <el-input-number size="mini" v-model="kaper.Vyigreshey" :min="1"></el-input-number>
               </v-flex>
               <v-flex>
                 <label>Возвраты</label>
-                <br>
+                <br />
                 <el-input-number size="mini" v-model="kaper.Vozvratov" :min="1"></el-input-number>
               </v-flex>
               <v-flex>
                 <label>Проигрыш</label>
-                <br>
+                <br />
                 <el-input-number size="mini" v-model="kaper.Proigreshey" :min="1"></el-input-number>
               </v-flex>
             </v-layout>
@@ -118,12 +131,23 @@
 </template>
 <script>
 import ImageCropper from "@/components/widgets/ImageCropper";
-import PanThumb from "@/components/widgets/PanThumb";
+import PanThumb from "@/components/widgets/PanThumb1";
 export default {
   name: "form-edit-kaper",
   components: { ImageCropper, PanThumb },
   data() {
     return {
+      direction: "bottom",
+      fab: false,
+      fling: false,
+      hover: false,
+      tabs: null,
+      top: false,
+      right: true,
+      bottom: true,
+      left: false,
+      transition: "slide-y-reverse-transition",
+
       items: ["мужской", "женский"],
       imagecropperShow: false,
       imagecropperKey: 0,
@@ -132,7 +156,9 @@ export default {
       valid: true,
       loginRules: [v => !!v || "Требуется логин капера"],
       passwRules: [v => !!v || "Требуется пароль капера"],
-      imgDefault: "https://randomuser.me/api/portraits/men/1.jpg"
+      imgDefault: "https://randomuser.me/api/portraits/men/1.jpg",
+
+      selectAvatars: []
     };
   },
   computed: {
@@ -164,7 +190,17 @@ export default {
       return this.$store.getters["kaper/getPrOperation"];
     }
   },
+  async created() {
+    const { avatars } = await this.$axios.$get("/api/Avatars");
+    debugger;
+    this.selectAvatars = avatars;
+  },
   methods: {
+    clickAvatar(avatar) {
+      debugger;
+      alert("gggg");
+      this.kaper.Avatar = avatar;
+    },
     cropSuccess(resData) {
       this.imagecropperShow = false;
       this.imagecropperKey = this.imagecropperKey + 1;
@@ -182,10 +218,8 @@ export default {
       }
     },
     async insertItem() {
-      ;
       await this.$store.dispatch("kaper/setKapper", this.kaper);
       if (this.prOperation === "ok") {
-        ;
         this.$store.dispatch("kaper/setPrGetList", true);
         this.dialogForm = false;
         this.$notify({
@@ -204,5 +238,14 @@ export default {
   }
 };
 </script>
+<style scoped>
+/* This is for documentation purposes and will not be needed in your application */
+#create .v-speed-dial {
+  position: absolute;
+}
 
+#create .v-btn--floating {
+  position: relative;
+}
+</style>
  

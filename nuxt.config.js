@@ -1,7 +1,7 @@
 const pkg = require('./package')
 // const apiUrl = process.env.API_URL || 'https://localhost:5001'
-const apiUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:5000' : 'https://api.pikbet.ru'
-console.log("apiUrl", apiUrl)
+import configEnm from './util/configEnv'
+console.log(configEnm)
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
 module.exports = {
@@ -14,8 +14,8 @@ module.exports = {
     '@nuxtjs/sitemap'
   ],
   axios: {
-    // baseURL: 'https://localhost:5001'
-    baseURL: 'https://api.pikbet.ru'
+    baseURL: configEnm.urlApi
+    // baseURL: 'https://api.pikbet.ru'
     //baseURL: apiUrl
   },
   auth: {
