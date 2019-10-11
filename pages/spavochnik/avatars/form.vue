@@ -27,7 +27,7 @@
                 />
               </v-flex>
               <v-flex xs10>
-                <v-text-field required :rules="loginRules" v-model="avatars.Desc" label="Описание"></v-text-field>
+                <v-text-field required v-model="avatars.Desc" label="Описание"></v-text-field>
               </v-flex>
             </v-layout>
           </v-container>
@@ -55,7 +55,7 @@ export default {
       imagecropperKey: 0,
       //image: "https://wpimg.wallstcn.com/577965b9-bb9e-4e02-9f0c-095b41417191",
 
-      // valid: true,
+      valid: true,
       // loginRules: [v => !!v || "Требуется логин капера"],
       // passwRules: [v => !!v || "Требуется пароль капера"],
       imgDefault: "https://randomuser.me/api/portraits/men/1.jpg"

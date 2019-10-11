@@ -20,12 +20,12 @@
       </el-tooltip>
     </div>
     <div class="mb-2">
-      <el-tooltip effect="dark" content="Добавить нового капера">
+      <el-tooltip effect="dark" content="Добавить новый аватар">
         <v-btn icon dark medium color="primary" @click="handleInsertItem">
           <v-icon>add</v-icon>
         </v-btn>
       </el-tooltip>
-      <el-tooltip effect="dark" content="Копировать капера">
+      <el-tooltip effect="dark" content="Копировать аватар">
         <v-btn color="primary" icon dark @click="handleCopy">
           <v-icon>filter_none</v-icon>
         </v-btn>
@@ -35,7 +35,7 @@
           <v-icon>autorenew</v-icon>
         </v-btn>
       </el-tooltip>
-      <el-tooltip effect="dark" content="Удалить выделенного капера">
+      <el-tooltip effect="dark" content="Удалить выделенный аватар">
         <v-btn icon dark color="primary" @click="handleDeleteAll">
           <v-icon>delete</v-icon>
         </v-btn>
@@ -76,12 +76,12 @@
 
       <el-table-column label="Действие">
         <template slot-scope="scope">
-          <el-tooltip effect="dark" content="Редактировать капера">
+          <el-tooltip effect="dark" content="Редактировать аватар">
             <v-btn outline icon dark medium color="primary" @click="editItem(scope.row)">
               <v-icon small>edit</v-icon>
             </v-btn>
           </el-tooltip>
-          <el-tooltip effect="dark" content="Удалить капера">
+          <el-tooltip effect="dark" content="Удалить аватар">
             <v-btn outline icon dark medium color="pink" @click="deleteItem(scope.row)">
               <v-icon small>delete</v-icon>
             </v-btn>
@@ -169,6 +169,7 @@ export default {
           center: true
         }
       ).then(async () => {
+        debugger;
         if (this.multipleSelection.length > 0) {
           const { rc } = await this.$axios.$post(
             "/api/Avatars/deleteall",

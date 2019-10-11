@@ -1,5 +1,5 @@
 <template>
-  <div :style="{zIndex:zIndex,height:height,width:width}" class="pan-item">
+  <div :style="{zIndex:zIndex,height:height,width:width}" class="pan-item" @click="selectAvatar">
     <div class="pan-info">
       <div class="pan-info-roles-container">
         <slot />
@@ -28,6 +28,11 @@ export default {
     height: {
       type: String,
       default: "50px"
+    }
+  },
+  methods: {
+    selectAvatar() {
+      this.$store.dispatch("kaper/setKaperAvatar", this.image);
     }
   }
 };

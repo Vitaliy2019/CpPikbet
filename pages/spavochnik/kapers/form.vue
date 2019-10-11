@@ -35,7 +35,7 @@
                     </v-tooltip>
                   </template>
                   <template v-for="(item, index) in selectAvatars">
-                    <pan-thumb :image="item.Avatar" :key="index" @click="clickAvatar(item.Avatar)" />
+                    <pan-thumb :image="item.Avatar" :key="index" @click="clickAvatar" />
                   </template>
                 </v-speed-dial>
               </v-flex>
@@ -192,14 +192,14 @@ export default {
   },
   async created() {
     const { avatars } = await this.$axios.$get("/api/Avatars");
-    debugger;
+
     this.selectAvatars = avatars;
   },
   methods: {
-    clickAvatar(avatar) {
+    clickAvatar() {
       debugger;
       alert("gggg");
-      this.kaper.Avatar = avatar;
+      //this.kaper.Avatar = avatar;
     },
     cropSuccess(resData) {
       this.imagecropperShow = false;

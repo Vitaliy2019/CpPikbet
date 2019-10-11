@@ -56,7 +56,7 @@
       highlight-current-row
       @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection" width="55"/>
+      <el-table-column type="selection" width="55" />
       <template v-for="(fruit, index) in LangFormThead">
         <el-table-column
           v-if="fruit.chkbD"
@@ -67,7 +67,7 @@
         >
           <template slot-scope="scope">
             <v-avatar v-if="fruit.nameField==='Avatar'">
-              <img :src="scope.row[fruit.nameField]" alt="avatar">
+              <img :src="scope.row[fruit.nameField]" alt="avatar" />
             </v-avatar>
             <span v-else style="margin-left: 10px">{{ scope.row[fruit.nameField] }}</span>
           </template>
@@ -101,7 +101,7 @@
         @current-change="handleCurrentChange"
       />
     </div>
-    <set-fieldslang-ref title="Показать / скрыть поля"/>
+    <set-fieldslang-ref title="Показать / скрыть поля" />
     <form-edit></form-edit>
   </v-container>
 </template>
@@ -260,6 +260,7 @@ export default {
       this.getList();
     },
     async getList() {
+      debugger;
       this.prGetList = true;
       const { kapers, total } = await this.$axios.$get("/api/Kapers", {
         params: this.listQuery
@@ -282,7 +283,7 @@ export default {
       })
         .then(async () => {
           //this.kapers = Object.assign({}, item);
-          
+
           const { rc } = await this.$axios.$delete(`/api/Kapers/${item.Id}`); //, {
           //params: item
           //});

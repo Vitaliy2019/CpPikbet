@@ -28,6 +28,9 @@ export const state = () => ({
 })
 
 export const mutations = {
+  SET_KAPER_AVTATR(state, sts) {
+    state.kaper.Avatar = sts
+  },
   SET_PR_GETLIST(state, sts) {
     state.prGetList = sts
   },
@@ -68,6 +71,11 @@ export const mutations = {
   }
 }
 export const actions = {
+  setKaperAvatar({
+    commit
+  }, sts) {
+    commit('SET_KAPER_AVTATR', sts)
+  },
   async initKaper({
     commit
   }, data) {
@@ -104,6 +112,7 @@ export const actions = {
   }
 }
 export const getters = {
+  getKaperAvatar: (state) => state.kaper.Avatar,
   getKaper(state) {
     return state.kaper
   },
